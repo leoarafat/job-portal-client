@@ -1,0 +1,49 @@
+.header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  background-color: white;
+  color: dark;
+  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+}
+.element {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-left: 1rem;
+  padding-right: 1rem;
+}
+.logo {
+  font-size: 1.25rem;
+  font-weight: 600;
+}
+.menu_icon {
+  font-size: 1.125rem;
+  cursor: pointer;
+}
+.children_data {
+  padding-top: 4rem;
+}
+.ant_menu_item {
+  font-size: 1rem;
+}
+@media (max-width: 1023px) {
+  .desktop_menu {
+    display: none;
+  }
+}
+
+@media (min-width: 1024px) {
+  .menu {
+    display: flex;
+  }
+
+  .desktop_menu {
+    display: flex;
+  }
+
+  .menu_icon {
+    display: none;
+  }
+}
