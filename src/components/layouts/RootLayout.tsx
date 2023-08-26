@@ -9,6 +9,7 @@ import {
   LoginOutlined,
 } from "@ant-design/icons";
 import CandidateLogin from "../candidateLogin/login";
+import Image from "next/image";
 
 interface RootLayoutProps {
   children: ReactNode;
@@ -52,7 +53,14 @@ const RootLayout: React.FC<RootLayoutProps> = ({ children }) => {
       >
         <div className="flex justify-between items-center w-full h-full px-2 2xl:px-16">
           <Link href="/">
-            <span className="text-xl">ProCareer</span>
+            <Image
+              src={
+                "https://res.cloudinary.com/arafatleo/image/upload/v1693051594/Pro%20careers/Location/106862-large_ktovze-removebg-preview_ltdjpn.png"
+              }
+              alt="Pro Career"
+              width={100}
+              height={60}
+            />
           </Link>
           <div>
             <ul style={{ color: `${linkColor}` }} className="hidden md:flex">
@@ -95,7 +103,14 @@ const RootLayout: React.FC<RootLayoutProps> = ({ children }) => {
             <div>
               <div className="flex w-full items-center justify-between">
                 <Link href="/">
-                  <span className="text-lg">ProCareer</span>
+                  <Image
+                    src={
+                      "https://res.cloudinary.com/arafatleo/image/upload/v1693051594/Pro%20careers/Location/106862-large_ktovze-removebg-preview_ltdjpn.png"
+                    }
+                    alt="Pro Career"
+                    width={100}
+                    height={60}
+                  />
                 </Link>
                 <div
                   onClick={handleNav}

@@ -12,6 +12,7 @@
         "button-name": "off"
       }
     ],
-    "axe/keyboard": "off"
+    "axe/keyboard": "off",
+    "axe/forms": "off"
   }
 }

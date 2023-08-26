@@ -1,3 +1,4 @@
+import BecomePaidMember from "@/components/ui/BecomePaidMember";
 import Courses from "@/components/ui/Courses";
 import FeaturedCompany from "@/components/ui/FeaturedCompany";
 import FindOrPostJob from "@/components/ui/FindOrPostJob";
@@ -36,6 +37,7 @@ export default function Home() {
         />
         <RecentJobCircularByLocations />
         <FindOrPostJob />
+        <BecomePaidMember />
         <SkillAssetment />
         <ResumeBuilder />
         <Courses />
