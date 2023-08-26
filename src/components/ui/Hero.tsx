@@ -1,6 +1,6 @@
 import { FaSearch } from "react-icons/fa";
 import Image from "next/image";
-import IMG from "../../assests/auth/login.png";
+import IMG from "../../assests/job-hero/job.png";
 
 const HeroSection: React.FC = () => {
   return (
@@ -19,9 +19,9 @@ const HeroSection: React.FC = () => {
               application feature. Post your resume or discover valuable career
               resources on Skill Jobs - the largest job site in Bangladesh.
             </p>
-            <div className="mt-8">
-              <div className="flex space-x-4">
-                <div className="relative w-2/3">
+            <div className="mt-8 ">
+              <div className="flex space-x-4 ">
+                <div className="relative w-2/3 shadow-xl rounded-lg">
                   <input
                     type="text"
                     className="w-full bg-white py-2 px-4 border border-gray-300 rounded-lg focus:ring-indigo-500 focus:border-indigo-500"
@@ -31,7 +31,7 @@ const HeroSection: React.FC = () => {
                     <FaSearch className="text-gray-400" />
                   </div>
                 </div>
-                <button className="w-1/3 bg-indigo-500 text-white py-2 px-4 rounded-lg">
+                <button className="w-1/3 bg-indigo-500 text-white py-2 px-4 rounded-lg shadow-xl">
                   Search
                 </button>
               </div>
