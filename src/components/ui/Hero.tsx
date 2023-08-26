@@ -40,7 +40,7 @@ const HeroSection: React.FC = () => {
 
           {/* Second Column */}
           <div className="mt-10 md:mt-0 md:w-1/2">
-            <div className="w-full h-full rounded-lg overflow-hidden">
+            <div className="hidden md:block w-full h-full rounded-lg overflow-hidden">
               <Image
                 src={IMG} // Replace with your image URL
                 alt="Hero Image"
