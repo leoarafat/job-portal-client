@@ -1,7 +1,6 @@
 import React, { ReactNode, useState } from "react";
 import Link from "next/link";
 import {
-  FileOutlined,
   BarChartOutlined,
   UserOutlined,
   FileAddOutlined,
@@ -13,31 +12,8 @@ import {
 
 import { Breadcrumb, Layout, Menu, theme } from "antd";
 import { GrUserSettings } from "react-icons/gr";
+import { MenuItem, getItem } from "@/shared/Dashboard";
 const { Header, Content, Sider } = Layout;
-
-type MenuItem = {
-  label: React.ReactNode;
-  key: React.Key;
-  icon?: React.ReactNode;
-  link?: string;
-  children?: MenuItem[];
-};
-
-function getItem(
-  label: React.ReactNode,
-  key: React.Key,
-  icon?: React.ReactNode,
-  link?: string,
-  children?: MenuItem[]
-): MenuItem {
-  return {
-    key,
-    icon,
-    link,
-    children,
-    label,
-  };
-}
 
 interface RootLayoutProps {
   children: ReactNode;
@@ -54,9 +30,9 @@ const DashboardLayout: React.FC<RootLayoutProps> = ({ children }) => {
   let filteredItems: MenuItem[] = [];
   if (userRole === "employee") {
     filteredItems = [
-      getItem("Dashboard", "1", <UserOutlined />, "/profile"),
+      getItem("Dashboard", "1", <UserOutlined />, "/employee-profile"),
 
-      getItem("Update Profile", "2", <GrUserSettings />, "/update-profile"),
+      getItem("Update Profile", "2", <GrUserSettings />, "/employ-profile/:id"),
       getItem("Previous Job", "3", <BarChartOutlined />, "/previous-job"),
       getItem("Post a Job", "4", <FileAddOutlined />, "/post-job"),
       getItem("Resume Bank", "5", <ProfileOutlined />, "/resume-bank"),
@@ -64,8 +40,13 @@ const DashboardLayout: React.FC<RootLayoutProps> = ({ children }) => {
     ];
   } else if (userRole === "candidate") {
     filteredItems = [
-      getItem("Dashboard", "1", <UserOutlined />, "/profile"),
-
+      getItem("Dashboard", "1", <UserOutlined />, "/candidate-profile"),
+      getItem(
+        "Update Profile",
+        "2",
+        <GrUserSettings />,
+        "/candidate-profile/:id"
+      ),
       getItem("Applied Jobs", "2", <OrderedListOutlined />, "/applied-jobs"),
       getItem(
         "Skill Enhancement",
