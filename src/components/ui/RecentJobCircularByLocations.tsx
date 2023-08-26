@@ -6,7 +6,7 @@ import React from "react";
 import Marquee from "react-fast-marquee";
 const RecentJobCircularByLocations = () => {
   return (
-    <div className="bg-gray-100 ml-10 mr-10">
+    <div className="bg-gray-100 p-6">
       <h2 className="text-[30px] font-bold">
         Recent Job Circular By Locations
       </h2>

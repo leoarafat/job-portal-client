@@ -4,7 +4,7 @@ import React from "react";
 
 const BecomePaidMember = () => {
   return (
-    <div className="grid md:grid-cols-2  text-center ml-10 mr-10 mb-10">
+    <div className="grid md:grid-cols-2  text-center  mb-10">
       <div className=" bg-blue-900 text-white flex items-center justify-center">
         <div className="">
           <h1 className="text-[30px] font-bold mb-14">

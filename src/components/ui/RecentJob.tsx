@@ -1,10 +1,22 @@
 /* eslint-disable @next/next/no-img-element */
 import React from "react";
 import { ShareAltOutlined, SaveOutlined } from "@ant-design/icons";
-import Image from "next/image";
-const Hello = ({ photoUrl, title, location, companyName, viewDetailsLink }) => {
+type JobProps = {
+  photoUrl: string;
+  title: string;
+  location: string;
+  companyName: string;
+  viewDetailsLink: string;
+};
+const RecentJobCircular: React.FC<JobProps> = ({
+  photoUrl,
+  title,
+  location,
+  companyName,
+  viewDetailsLink,
+}) => {
   return (
-    <div className="bg-gray-100 p-6 rounded-lg shadow-md ml-10 mr-10">
+    <div className="bg-gray-100 p-6  shadow-md ">
       <div className="flex items-center justify-between mb-3">
         <h2 className="text-[30px] font-semibold">Recent Job Circular</h2>
         <button className="px-6 py-3 border border-blue-500 text-blue-500 hover:bg-blue-500 hover:text-white rounded-md transition duration-300">
@@ -136,4 +148,4 @@ const Hello = ({ photoUrl, title, location, companyName, viewDetailsLink }) => {
   );
 };
 
-export default Hello;
+export default RecentJobCircular;

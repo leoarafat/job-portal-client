@@ -29,6 +29,7 @@ export default function Home() {
         <HeroSection />
         <FeaturedCompany />
         <RecentJob
+          key={jobData.title}
           photoUrl={jobData.photoUrl}
           title={jobData.title}
           location={jobData.location}

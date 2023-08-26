@@ -4,7 +4,7 @@ import React from "react";
 
 const FindOrPostJob = () => {
   return (
-    <div className="bg-gray-100 grid md:grid-cols-2 gap-8 text-center p-10">
+    <div className=" grid md:grid-cols-2 gap-8 text-center p-10 bg-blue-50">
       {/* Find Job Section */}
       <div className="flex md:flex-row justify-center items-center">
         <div className="relative max-w-full w-full h-64">

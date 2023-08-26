@@ -65,6 +65,9 @@ const RootLayout: React.FC<RootLayoutProps> = ({ children }) => {
           <div>
             <ul style={{ color: `${linkColor}` }} className="hidden md:flex">
               <li className="ml-10 text-lg  hover:border-b">
+                <Link href="/dashboard">Dashboard</Link>
+              </li>
+              <li className="ml-10 text-lg  hover:border-b">
                 <Link href="/jobs">Brows Jobs</Link>
               </li>
               <li className="ml-8 text-lg hover:border-b">
@@ -125,6 +128,11 @@ const RootLayout: React.FC<RootLayoutProps> = ({ children }) => {
             </div>
             <div className="py-4 flex flex-col">
               <ul className="">
+                <Link href="/dashboard">
+                  <li onClick={() => setNav(false)} className="py-4">
+                    Dashboard
+                  </li>
+                </Link>
                 <Link href="/jobs">
                   <li onClick={() => setNav(false)} className="py-4">
                     Brows Jobs
@@ -163,7 +171,7 @@ const RootLayout: React.FC<RootLayoutProps> = ({ children }) => {
           <div className="bg-blue-800 text-white p-3">
             <h1 className="pb-3 text-[30px] font-semibold">Job Seeker?</h1>
             <p className="pb-3 text-lg ">Join & find your dream job today!</p>
-            <Link href={"/login-candidate"}>
+            <Link href={"/login"}>
               <button className="pb-3 w-[150px] bg-gray-100 hover:bg-indigo-600 text-black font-bold py-2 px-4 rounded-lg transition duration-300 ease-in-out">
                 Sign In
               </button>
@@ -185,7 +193,7 @@ const RootLayout: React.FC<RootLayoutProps> = ({ children }) => {
             <p className="pb-3 text-lg ">
               Find the best candidates for your company.
             </p>
-            <Link href={"/login-candidate"}>
+            <Link href={"/login"}>
               {" "}
               <button className="pb-3 w-[150px] bg-gray-100 hover:bg-indigo-600 text-black font-bold py-2 px-4 rounded-lg transition duration-300 ease-in-out">
                 Sign In

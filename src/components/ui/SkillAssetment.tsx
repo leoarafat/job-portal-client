@@ -3,7 +3,7 @@ import React from "react";
 
 const SkillAssetment = () => {
   return (
-    <div className="md:grid grid-cols-2 text-center mr-10 ml-10 mb-8">
+    <div className="md:grid grid-cols-2 text-center  mb-8">
       <div className="mx-auto md:mx-0">
         <h1 className="text-[30px] font-bold mb-8">Test Your Employability</h1>
         <p className="text-lg font-sans mb-8 p-3">

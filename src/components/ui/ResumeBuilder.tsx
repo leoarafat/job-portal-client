@@ -3,7 +3,7 @@ import React from "react";
 
 const ResumeBuilder = () => {
   return (
-    <div className="md:grid grid-cols-2 text-center mr-10 ml-10 bg-blue-50 mb-8">
+    <div className="md:grid grid-cols-2 text-center  bg-blue-50 mb-8">
       <div>
         <img
           className=""
@@ -22,7 +22,7 @@ const ResumeBuilder = () => {
             your preferred template from our gallery and create your resume,
             cover letter and other job application documents for free!
           </p>
-          <button className="px-6 py-3 border border-blue-500 text-black hover:bg-blue-500 hover:text-white rounded-md transition duration-300">
+          <button className="px-6 py-3 border border-blue-500 text-black hover:bg-blue-500 hover:text-white rounded-md transition duration-300 mb-6">
             Explore Now
           </button>
         </div>

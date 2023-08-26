@@ -3,7 +3,7 @@ import React from "react";
 
 const Course = () => {
   return (
-    <div className="md:grid grid-cols-2 text-center mr-10 ml-10 mb-8">
+    <div className="md:grid grid-cols-2 text-center  mb-8">
       <div className="flex items-center">
         <div>
           <h1 className="text-[30px] font-bold mb-8">Training</h1>

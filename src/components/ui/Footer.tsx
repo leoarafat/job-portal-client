@@ -233,7 +233,7 @@ const Footer = () => {
               </div>
               <div className="flex justify-between border-t border-cyan-800 py-8 ">
                 <span>
-                  &copy; tailus 2003 - <span id="year"></span>
+                  &copy; ProCareer - <span id="year"></span>
                 </span>
                 <span>All right reserved</span>
               </div>
