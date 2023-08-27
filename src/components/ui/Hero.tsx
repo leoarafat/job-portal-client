@@ -11,13 +11,13 @@ const HeroSection: React.FC = () => {
           <div className="md:w-1/2">
             <h2 className="text-3xl font-extrabold text-gray-900">
               Find Recent Job Circular. <br />
-              Skill Jobs - The Best Job Application Site
+              Pro Career - The Best Job Application Site
             </h2>
             <p className="mt-4 text-gray-600">
               Are you looking for a job? Find all recent job circular available
               in Bangladesh and around the globe in one place with easy job
               application feature. Post your resume or discover valuable career
-              resources on Skill Jobs - the largest job site in Bangladesh.
+              resources on Pro Career - the largest job site in Bangladesh.
             </p>
             <div className="mt-8 ">
               <div className="flex space-x-4 ">

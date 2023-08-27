@@ -78,6 +78,13 @@ const RootLayout: React.FC<RootLayoutProps> = ({ children }) => {
 
                 <button onClick={toggleDrawer}>Sign In</button>
               </li>
+              <li className="ml-8 text-lg hover:border-b">
+                <Link href="/membership">
+                  <span className="px-5 py-2 bg-blue-500 text-black rounded-md shadow-md hover:bg-blue-600 transition duration-300 ">
+                    Membership
+                  </span>
+                </Link>
+              </li>
             </ul>
 
             <div
@@ -143,6 +150,12 @@ const RootLayout: React.FC<RootLayoutProps> = ({ children }) => {
                     Corporate
                   </li>
                 </Link>
+                <Link href="/membership">
+                  <li onClick={() => setNav(false)} className="py-4">
+                    Membership
+                  </li>
+                </Link>
+
                 <button>
                   <li
                     onClick={() => setNav(false)}
@@ -171,7 +184,7 @@ const RootLayout: React.FC<RootLayoutProps> = ({ children }) => {
           <div className="bg-blue-800 text-white p-3">
             <h1 className="pb-3 text-[30px] font-semibold">Job Seeker?</h1>
             <p className="pb-3 text-lg ">Join & find your dream job today!</p>
-            <Link href={"/login"}>
+            <Link href={"/login-candidate"}>
               <button className="pb-3 w-[150px] bg-gray-100 hover:bg-indigo-600 text-black font-bold py-2 px-4 rounded-lg transition duration-300 ease-in-out">
                 Sign In
               </button>
@@ -193,7 +206,7 @@ const RootLayout: React.FC<RootLayoutProps> = ({ children }) => {
             <p className="pb-3 text-lg ">
               Find the best candidates for your company.
             </p>
-            <Link href={"/login"}>
+            <Link href={"/login-employee"}>
               {" "}
               <button className="pb-3 w-[150px] bg-gray-100 hover:bg-indigo-600 text-black font-bold py-2 px-4 rounded-lg transition duration-300 ease-in-out">
                 Sign In

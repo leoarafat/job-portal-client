@@ -8,6 +8,7 @@ import {
   TranslationOutlined,
   OrderedListOutlined,
   TeamOutlined,
+  UnorderedListOutlined,
 } from "@ant-design/icons";
 
 import { Breadcrumb, Layout, Menu, theme } from "antd";
@@ -48,16 +49,17 @@ const DashboardLayout: React.FC<RootLayoutProps> = ({ children }) => {
         "/candidate-profile/:id"
       ),
       getItem("Applied Jobs", "2", <OrderedListOutlined />, "/applied-jobs"),
+      getItem("My Classes", "3", <UnorderedListOutlined />, "/applied-jobs"),
       getItem(
         "Skill Enhancement",
-        "3",
+        "4",
         <BarChartOutlined />,
         "/skill-enhancement"
       ),
-      getItem("Social Feed", "4", <TeamOutlined />, "/social-feed"),
+      getItem("Social Feed", "5", <TeamOutlined />, "/social-feed"),
       getItem(
         "Transactions History",
-        "5",
+        "6",
         <TranslationOutlined />,
         "/transactions-history"
       ),
