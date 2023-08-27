@@ -4,7 +4,7 @@ import React from "react";
 
 const PaidMember = () => {
   return (
-    <div className="md:grid grid-cols-2 text-center   mb-8">
+    <div className="md:grid grid-cols-2 text-center  mb-8">
       <div className="flex items-center">
         <div>
           <h1 className="text-[30px] font-bold mb-8">
