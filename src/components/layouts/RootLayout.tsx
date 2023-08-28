@@ -1,15 +1,18 @@
 import React, { ReactNode, useState, useEffect } from "react";
 
 import Link from "next/link";
-import { Col, Drawer, Row } from "antd";
+import { Drawer, Row } from "antd";
 
 import {
   MenuFoldOutlined,
   CloseOutlined,
   LoginOutlined,
+  LogoutOutlined,
 } from "@ant-design/icons";
-import CandidateLogin from "../candidateLogin/login";
+import Cookies from "js-cookie";
 import Image from "next/image";
+import { useAppDispatch, useAppSelector } from "@/redux/hooks";
+import { clearUser } from "@/redux/features/auth/authSlice";
 
 interface RootLayoutProps {
   children: ReactNode;
@@ -22,7 +25,9 @@ const RootLayout: React.FC<RootLayoutProps> = ({ children }) => {
   const [shadow, setShadow] = useState(false);
   const [navBg, setNavBg] = useState("#fff");
   const [linkColor, setLinkColor] = useState("#1f2937");
+  const user = useAppSelector((state) => state.auth.user);
 
+  const dispatch = useAppDispatch();
   const handleNav = () => {
     setNav(!nav);
   };
@@ -40,6 +45,16 @@ const RootLayout: React.FC<RootLayoutProps> = ({ children }) => {
     };
     window.addEventListener("scroll", handleShadow);
   }, []);
+
+  const handleLogout = () => {
+    dispatch(clearUser());
+
+    if (user && user?.role === "Candidate") {
+      Cookies.remove("candidate");
+    } else if (user && user.role === "Employee") {
+      Cookies.remove("employee");
+    }
+  };
 
   return (
     <>
@@ -64,20 +79,31 @@ const RootLayout: React.FC<RootLayoutProps> = ({ children }) => {
           </Link>
           <div>
             <ul style={{ color: `${linkColor}` }} className="hidden md:flex">
-              <li className="ml-10 text-lg  hover:border-b">
-                <Link href="/dashboard">Dashboard</Link>
-              </li>
+              {user?.email && (
+                <li className="ml-10 text-lg  hover:border-b">
+                  <Link href="/dashboard">Dashboard</Link>
+                </li>
+              )}
+
               <li className="ml-10 text-lg  hover:border-b">
                 <Link href="/jobs">Brows Jobs</Link>
               </li>
               <li className="ml-8 text-lg hover:border-b">
                 <Link href="/corporate">Corporate</Link>
               </li>
-              <li className="ml-8 text-lg flex items-center hover:border-b">
-                <LoginOutlined className="mr-1" />
+              {user?.email ? (
+                <li className="ml-8 text-lg flex items-center hover:border-b">
+                  <LogoutOutlined className="mr-1" />
 
-                <button onClick={toggleDrawer}>Sign In</button>
-              </li>
+                  <button onClick={handleLogout}>Logout</button>
+                </li>
+              ) : (
+                <li className="ml-8 text-lg flex items-center hover:border-b">
+                  <LoginOutlined className="mr-1" />
+
+                  <button onClick={toggleDrawer}>Sign In</button>
+                </li>
+              )}
               <li className="ml-8 text-lg hover:border-b">
                 <Link href="/membership">
                   <span className="px-5 py-2 bg-blue-500 text-black rounded-md shadow-md hover:bg-blue-600 transition duration-300 ">
@@ -135,11 +161,14 @@ const RootLayout: React.FC<RootLayoutProps> = ({ children }) => {
             </div>
             <div className="py-4 flex flex-col">
               <ul className="">
-                <Link href="/dashboard">
-                  <li onClick={() => setNav(false)} className="py-4">
-                    Dashboard
-                  </li>
-                </Link>
+                {user?.email && (
+                  <Link href="/dashboard">
+                    <li onClick={() => setNav(false)} className="py-4">
+                      Dashboard
+                    </li>
+                  </Link>
+                )}
+
                 <Link href="/jobs">
                   <li onClick={() => setNav(false)} className="py-4">
                     Brows Jobs
@@ -156,15 +185,27 @@ const RootLayout: React.FC<RootLayoutProps> = ({ children }) => {
                   </li>
                 </Link>
 
-                <button>
-                  <li
-                    onClick={() => setNav(false)}
-                    className="flex items-center py-4"
-                  >
-                    <LoginOutlined className="mr-1" />
-                    <button onClick={toggleDrawer}> Sign In</button>
-                  </li>
-                </button>
+                {user?.email ? (
+                  <button>
+                    <li
+                      onClick={() => setNav(false)}
+                      className="flex items-center py-4"
+                    >
+                      <LogoutOutlined className="mr-1" />
+                      <button>Logout</button>
+                    </li>
+                  </button>
+                ) : (
+                  <button>
+                    <li
+                      onClick={() => setNav(false)}
+                      className="flex items-center py-4"
+                    >
+                      <LogoutOutlined className="mr-1" />
+                      <button>Logout</button>
+                    </li>
+                  </button>
+                )}
               </ul>
             </div>
           </div>

@@ -4,6 +4,12 @@ import Image from "next/image";
 import Link from "next/link";
 import signupImage from "../../assests/auth/signup.png";
 import dynamic from "next/dynamic";
+
+import { useRouter } from "next/router";
+import { Spin, message } from "antd";
+import { isErrorResponse, isSuccessResponse } from "@/shared/loginResponse";
+import { useCreateCandidateMutation } from "@/redux/features/user/userSlice";
+
 const RootLayout = dynamic(
   () => import("../../components/layouts/RootLayout"),
   {
@@ -18,9 +24,22 @@ interface SignupFormValues {
 
 const CreateCandidate = () => {
   const { handleSubmit, register } = useForm<SignupFormValues>();
+  const router = useRouter();
+  const [createCandidate, { isLoading }] = useCreateCandidateMutation();
 
-  const handleSignupSubmit: SubmitHandler<SignupFormValues> = (data) => {
-    console.log(data);
+  const handleSignupSubmit: SubmitHandler<SignupFormValues> = async (data) => {
+    try {
+      const response = await createCandidate(data);
+
+      if (isSuccessResponse(response)) {
+        message.success("candidate register Successful");
+        router.push("/login-candidate");
+      } else if (isErrorResponse(response)) {
+        message.error(response.error.data.message);
+      }
+    } catch (error) {
+      console.log("error");
+    }
   };
 
   return (
@@ -55,9 +74,10 @@ const CreateCandidate = () => {
                 autoComplete="name"
                 required
                 className="w-full px-3 py-2 mt-1 text-gray-800 border rounded-md focus:ring-indigo-500 focus:border-indigo-500"
-                placeholder="Enter your name"
+                placeholder="Enter your first name"
               />
             </div>
+
             <div>
               <label
                 htmlFor="email"
@@ -99,7 +119,7 @@ const CreateCandidate = () => {
                 type="submit"
                 className="w-full py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
               >
-                Sign up
+                {isLoading ? <Spin /> : "Sign up"}
               </button>
             </div>
           </form>

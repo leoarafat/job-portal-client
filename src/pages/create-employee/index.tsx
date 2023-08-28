@@ -4,6 +4,11 @@ import Image from "next/image";
 import Link from "next/link";
 import signupImage from "../../assests/auth/signup.png";
 import dynamic from "next/dynamic";
+
+import { useRouter } from "next/router";
+import { isErrorResponse, isSuccessResponse } from "@/shared/loginResponse";
+import { Spin, message } from "antd";
+import { useCreateEmployeeMutation } from "@/redux/features/user/userSlice";
 const RootLayout = dynamic(
   () => import("../../components/layouts/RootLayout"),
   {
@@ -20,8 +25,22 @@ interface SignupFormValues {
 const CreateEmployee = () => {
   const { handleSubmit, register } = useForm<SignupFormValues>();
 
-  const handleSignupSubmit: SubmitHandler<SignupFormValues> = (data) => {
-    console.log(data);
+  const router = useRouter();
+  const [createEmployee, { isLoading }] = useCreateEmployeeMutation();
+
+  const handleSignupSubmit: SubmitHandler<SignupFormValues> = async (data) => {
+    try {
+      const response = await createEmployee(data);
+
+      if (isSuccessResponse(response)) {
+        message.success("Employee register Successful");
+        router.push("/login-employee");
+      } else if (isErrorResponse(response)) {
+        message.error(response.error.data.message);
+      }
+    } catch (error) {
+      console.log("error");
+    }
   };
 
   return (
@@ -100,7 +119,7 @@ const CreateEmployee = () => {
                 type="submit"
                 className="w-full py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
               >
-                Sign up
+                {isLoading ? <Spin /> : "Sign up"}
               </button>
             </div>
           </form>

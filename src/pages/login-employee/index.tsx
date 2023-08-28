@@ -5,24 +5,42 @@ import { FiUser } from "react-icons/fi";
 import Image from "next/image";
 import Link from "next/link";
 import loginImage from "../../assests/auth/login.png";
-
+import Cookies from "js-cookie";
 import dynamic from "next/dynamic";
+import { LoginFormValues } from "@/types/user";
+import { useAppDispatch } from "@/redux/hooks";
+import { useLoginEmployeeMutation } from "@/redux/features/auth/authApi";
+import { isErrorResponse, isSuccessResponse } from "@/shared/loginResponse";
+import { setUser } from "@/redux/features/auth/authSlice";
+import { Spin, message } from "antd";
+import { useRouter } from "next/router";
 const RootLayout = dynamic(
   () => import("../../components/layouts/RootLayout"),
   {
     ssr: false,
   }
 );
-interface LoginFormValues {
-  email: string;
-  password: string;
-}
 
 const LoginEmployee = () => {
   const { handleSubmit, register } = useForm<LoginFormValues>();
+  const dispatch = useAppDispatch();
+  const [loginEmployee, { isLoading }] = useLoginEmployeeMutation();
+  const router = useRouter();
+  const handleLoginSubmit: SubmitHandler<LoginFormValues> = async (data) => {
+    try {
+      const response = await loginEmployee(data);
 
-  const handleLoginSubmit: SubmitHandler<LoginFormValues> = (data) => {
-    console.log(data);
+      if (isSuccessResponse(response)) {
+        const user = response.data.data;
+        dispatch(setUser(user));
+        Cookies.set("employee", JSON.stringify(user));
+        dispatch(setUser(user));
+        message.success("employee Login Successful");
+        router.push("/employee-profile");
+      } else if (isErrorResponse(response)) {
+        message.error(response.error.data.message);
+      }
+    } catch (error) {}
   };
 
   return (
@@ -89,7 +107,7 @@ const LoginEmployee = () => {
                 type="submit"
                 className="w-full py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
               >
-                Sign in
+                {isLoading ? <Spin /> : "Sign in"}
               </button>
             </div>
           </form>

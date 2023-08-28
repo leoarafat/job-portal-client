@@ -1,4 +1,4 @@
-import { store } from "@/redux/store";
+import { persistor, store } from "@/redux/store";
 import "@/styles/globals.css";
 import { SessionProvider } from "next-auth/react";
 import type { AppProps } from "next/app";
@@ -16,10 +16,12 @@ export default function App({ Component, pageProps }: AppProps) {
   return (
     <>
       <Provider store={store}>
+        {/* <PersistGate loading={null} persistor={persistor}> */}
         <Toaster position="bottom-right" />
         <SessionProvider session={pageProps.session}>
           {getLayout(<Component {...pageProps} />)}
         </SessionProvider>
+        {/* </PersistGate> */}
       </Provider>
     </>
   );

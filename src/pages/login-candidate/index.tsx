@@ -1,27 +1,47 @@
 /* eslint-disable react/no-unescaped-entities */
 // pages/login.tsx
 import { useForm, SubmitHandler } from "react-hook-form";
-
+import Cookies from "js-cookie";
 import Image from "next/image";
 import Link from "next/link";
 import loginImage from "../../assests/auth/login.png";
 import dynamic from "next/dynamic";
+import { Spin, message } from "antd";
+import { useRouter } from "next/router";
+import { useAppDispatch } from "@/redux/hooks";
+import { useLoginCandidateMutation } from "@/redux/features/auth/authApi";
+import { setUser } from "@/redux/features/auth/authSlice";
+import { isErrorResponse, isSuccessResponse } from "@/shared/loginResponse";
+import { LoginFormValues } from "@/types/user";
 const RootLayout = dynamic(
   () => import("../../components/layouts/RootLayout"),
   {
     ssr: false,
   }
 );
-interface LoginFormValues {
-  email: string;
-  password: string;
-}
 
 const LoginCandidate = () => {
+  const router = useRouter();
   const { handleSubmit, register } = useForm<LoginFormValues>();
+  const dispatch = useAppDispatch();
+  const [loginCandidate, { isLoading }] = useLoginCandidateMutation();
 
-  const handleLoginSubmit: SubmitHandler<LoginFormValues> = (data) => {
-    console.log(data);
+  const handleLoginSubmit: SubmitHandler<LoginFormValues> = async (data) => {
+    try {
+      const response = await loginCandidate(data);
+
+      if (isSuccessResponse(response)) {
+        const user = response.data.data;
+
+        dispatch(setUser(user));
+        Cookies.set("candidate", JSON.stringify(user));
+        dispatch(setUser(user));
+        message.success("candidate Login Successful");
+        router.push("/candidate-profile");
+      } else if (isErrorResponse(response)) {
+        message.error(response.error.data.message);
+      }
+    } catch (error) {}
   };
 
   return (
@@ -87,8 +107,9 @@ const LoginCandidate = () => {
               <button
                 type="submit"
                 className="w-full py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+                disabled={isLoading} // Disable the button while loading
               >
-                Sign in
+                {isLoading ? <Spin /> : "Sign in"}
               </button>
             </div>
           </form>

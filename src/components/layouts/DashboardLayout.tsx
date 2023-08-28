@@ -14,6 +14,7 @@ import {
 import { Breadcrumb, Layout, Menu, theme } from "antd";
 import { GrUserSettings } from "react-icons/gr";
 import { MenuItem, getItem } from "@/shared/Dashboard";
+import { useAppSelector } from "@/redux/hooks";
 const { Header, Content, Sider } = Layout;
 
 interface RootLayoutProps {
@@ -21,15 +22,15 @@ interface RootLayoutProps {
 }
 
 const DashboardLayout: React.FC<RootLayoutProps> = ({ children }) => {
+  const user = useAppSelector((state) => state.auth.user);
+
   const [collapsed, setCollapsed] = useState(false);
   const {
     token: { colorBgContainer },
   } = theme.useToken();
 
-  const userRole = "employee" || "employee";
-
   let filteredItems: MenuItem[] = [];
-  if (userRole === "employee") {
+  if (user?.role === "Employee") {
     filteredItems = [
       getItem("Dashboard", "1", <UserOutlined />, "/employee-profile"),
 
@@ -39,7 +40,7 @@ const DashboardLayout: React.FC<RootLayoutProps> = ({ children }) => {
       getItem("Resume Bank", "5", <ProfileOutlined />, "/resume-bank"),
       getItem("Transactions", "6", <TranslationOutlined />, "/transactions"),
     ];
-  } else if (userRole === "candidate") {
+  } else if (user?.role === "Candidate") {
     filteredItems = [
       getItem("Dashboard", "1", <UserOutlined />, "/candidate-profile"),
       getItem(
