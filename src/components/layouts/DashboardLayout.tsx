@@ -15,6 +15,7 @@ import { Breadcrumb, Layout, Menu, theme } from "antd";
 import { GrUserSettings } from "react-icons/gr";
 import { MenuItem, getItem } from "@/shared/Dashboard";
 import { useAppSelector } from "@/redux/hooks";
+import { User } from "@/shared/user";
 const { Header, Content, Sider } = Layout;
 
 interface RootLayoutProps {
@@ -22,8 +23,8 @@ interface RootLayoutProps {
 }
 
 const DashboardLayout: React.FC<RootLayoutProps> = ({ children }) => {
-  const user = useAppSelector((state) => state.auth.user);
-
+  const user = useAppSelector((state) => state.auth.user) as User;
+  const id = user?.id;
   const [collapsed, setCollapsed] = useState(false);
   const {
     token: { colorBgContainer },
@@ -34,7 +35,12 @@ const DashboardLayout: React.FC<RootLayoutProps> = ({ children }) => {
     filteredItems = [
       getItem("Dashboard", "1", <UserOutlined />, "/employee-profile"),
 
-      getItem("Update Profile", "2", <GrUserSettings />, "/employ-profile/:id"),
+      getItem(
+        "Update Profile",
+        "2",
+        <GrUserSettings />,
+        `/employ-profile/${id}`
+      ),
       getItem("Previous Job", "3", <BarChartOutlined />, "/previous-job"),
       getItem("Post a Job", "4", <FileAddOutlined />, "/post-job"),
       getItem("Resume Bank", "5", <ProfileOutlined />, "/resume-bank"),
@@ -47,7 +53,7 @@ const DashboardLayout: React.FC<RootLayoutProps> = ({ children }) => {
         "Update Profile",
         "2",
         <GrUserSettings />,
-        "/candidate-profile/:id"
+        `/candidate-profile/${id}`
       ),
       getItem("Applied Jobs", "2", <OrderedListOutlined />, "/applied-jobs"),
       getItem("My Classes", "3", <UnorderedListOutlined />, "/applied-jobs"),

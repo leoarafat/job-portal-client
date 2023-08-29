@@ -32,12 +32,12 @@ const LoginCandidate = () => {
 
       if (isSuccessResponse(response)) {
         const user = response.data.data;
-
+        console.log(user);
         dispatch(setUser(user));
         Cookies.set("candidate", JSON.stringify(user));
         dispatch(setUser(user));
         message.success("candidate Login Successful");
-        router.push("/candidate-profile");
+        router.push(`/candidate-profile/${user?.id}`);
       } else if (isErrorResponse(response)) {
         message.error(response.error.data.message);
       }

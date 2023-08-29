@@ -16,8 +16,28 @@ const authApi = api.injectEndpoints({
         body: credentials,
       }),
     }),
+    updateCandidate: builder.mutation({
+      query: ({ id, data }) => ({
+        url: `/candidate/${id}`,
+        method: "PATCH",
+        body: data,
+      }),
+      invalidatesTags: ["update"],
+    }),
+    updateEmployee: builder.mutation({
+      query: ({ id, data }) => ({
+        url: `/employee/${id}`,
+        method: "PATCH",
+        body: data,
+      }),
+      invalidatesTags: ["update"],
+    }),
   }),
 });
 
-export const { useCreateCandidateMutation, useCreateEmployeeMutation } =
-  authApi;
+export const {
+  useCreateCandidateMutation,
+  useCreateEmployeeMutation,
+  useUpdateCandidateMutation,
+  useUpdateEmployeeMutation,
+} = authApi;
