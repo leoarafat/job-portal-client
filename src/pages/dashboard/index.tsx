@@ -2,6 +2,7 @@ import DashboardLayout from "@/components/layouts/DashboardLayout";
 
 import React from "react";
 import dynamic from "next/dynamic";
+import PrivateRoute from "@/utils/PrivateRoutes";
 const RootLayout = dynamic(
   () => import("../../components/layouts/RootLayout"),
   {
@@ -15,8 +16,11 @@ const Dashboard = () => {
 export default Dashboard;
 Dashboard.getLayout = function getLayout(page: any) {
   return (
-    <RootLayout>
-      <DashboardLayout>{page}</DashboardLayout>
-    </RootLayout>
+    <PrivateRoute>
+      {" "}
+      <RootLayout>
+        <DashboardLayout>{page}</DashboardLayout>
+      </RootLayout>
+    </PrivateRoute>
   );
 };

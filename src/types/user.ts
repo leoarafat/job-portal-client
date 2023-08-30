@@ -27,19 +27,6 @@ export interface ICandidateUpdate {
 type Gender = "Male" | "Female" | "Others";
 type JobType = "FullTime" | "Internship" | "PartTime";
 
-// interface SuccessResponse<T> {
-//   data: T;
-//   success: true;
-// }
-
-// interface ErrorResponse {
-//   error: {
-//     message: string;
-//   };
-//   success: false;
-// }
-
-// export type APIResponse<T> = SuccessResponse<T> | ErrorResponse;
 export interface APIResponse<T> {
   data?: T;
   error?: {

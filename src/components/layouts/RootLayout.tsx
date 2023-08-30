@@ -1,8 +1,8 @@
 import React, { ReactNode, useState, useEffect } from "react";
 
 import Link from "next/link";
-import { Drawer, Row } from "antd";
-
+import { Drawer, Modal, Row, message } from "antd";
+import { RootState } from "../../redux/store";
 import {
   MenuFoldOutlined,
   CloseOutlined,
@@ -13,7 +13,7 @@ import Cookies from "js-cookie";
 import Image from "next/image";
 import { useAppDispatch, useAppSelector } from "@/redux/hooks";
 import { clearUser } from "@/redux/features/auth/authSlice";
-
+import Swal from "sweetalert2";
 interface RootLayoutProps {
   children: ReactNode;
 }
@@ -25,7 +25,7 @@ const RootLayout: React.FC<RootLayoutProps> = ({ children }) => {
   const [shadow, setShadow] = useState(false);
   const [navBg, setNavBg] = useState("#fff");
   const [linkColor, setLinkColor] = useState("#1f2937");
-  const user = useAppSelector((state) => state.auth.user);
+  const user = useAppSelector((state: RootState) => state.auth.user);
 
   const dispatch = useAppDispatch();
   const handleNav = () => {
@@ -46,16 +46,49 @@ const RootLayout: React.FC<RootLayoutProps> = ({ children }) => {
     window.addEventListener("scroll", handleShadow);
   }, []);
 
+  // const handleLogout = () => {
+  //   // Show a confirmation modal
+  //   Modal.confirm({
+  //     title: "Logout",
+  //     content: "Are you sure you want to log out?",
+  //     onOk: () => {
+  //       dispatch(clearUser());
+
+  //       if (user && user?.role === "Candidate") {
+  //         Cookies.remove("candidate");
+  //       } else if (user && user.role === "Employee") {
+  //         Cookies.remove("employee");
+  //       }
+
+  //       message.success("Logged out successfully", 2);
+  //     },
+  //   });
+  // };
   const handleLogout = () => {
-    dispatch(clearUser());
+    // Display a confirmation alert using SweetAlert
+    Swal.fire({
+      title: "Logout",
+      text: "Are you sure you want to log out?",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Yes, logout",
+    }).then((result: { isConfirmed: any }) => {
+      if (result.isConfirmed) {
+        // Perform logout actions
+        dispatch(clearUser());
 
-    if (user && user?.role === "Candidate") {
-      Cookies.remove("candidate");
-    } else if (user && user.role === "Employee") {
-      Cookies.remove("employee");
-    }
+        if (user && user?.role === "Candidate") {
+          Cookies.remove("candidate");
+        } else if (user && user.role === "Employee") {
+          Cookies.remove("employee");
+        }
+
+        message.success("Logged out successfully", 2);
+      }
+    });
   };
-
   return (
     <>
       <div
@@ -186,7 +219,7 @@ const RootLayout: React.FC<RootLayoutProps> = ({ children }) => {
                 </Link>
 
                 {user?.email ? (
-                  <button>
+                  <button onClick={handleLogout}>
                     <li
                       onClick={() => setNav(false)}
                       className="flex items-center py-4"

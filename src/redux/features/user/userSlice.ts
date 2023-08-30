@@ -30,7 +30,12 @@ const authApi = api.injectEndpoints({
         method: "PATCH",
         body: data,
       }),
-      invalidatesTags: ["update"],
+    }),
+    getSingleCandidate: builder.query({
+      query: (id) => `/candidate/${id}`,
+    }),
+    getSingleEmployee: builder.query({
+      query: (id) => `/employee/${id}`,
     }),
   }),
 });
@@ -40,4 +45,6 @@ export const {
   useCreateEmployeeMutation,
   useUpdateCandidateMutation,
   useUpdateEmployeeMutation,
+  useGetSingleCandidateQuery,
+  useGetSingleEmployeeQuery,
 } = authApi;

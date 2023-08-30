@@ -3,6 +3,7 @@ import RecruitmentService from "@/components/corporate/RecruitmentService";
 import React from "react";
 import dynamic from "next/dynamic";
 import Footer from "@/components/ui/Footer";
+import PrivateRoute from "@/utils/PrivateRoutes";
 const RootLayout = dynamic(
   () => import("../../components/layouts/RootLayout"),
   {

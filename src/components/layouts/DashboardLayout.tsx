@@ -39,7 +39,7 @@ const DashboardLayout: React.FC<RootLayoutProps> = ({ children }) => {
         "Update Profile",
         "2",
         <GrUserSettings />,
-        `/employ-profile/${id}`
+        `/employee-profile/${id}`
       ),
       getItem("Previous Job", "3", <BarChartOutlined />, "/previous-job"),
       getItem("Post a Job", "4", <FileAddOutlined />, "/post-job"),

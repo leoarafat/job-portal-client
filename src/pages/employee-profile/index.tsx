@@ -1,9 +1,14 @@
-import React, { useState } from "react";
-import { Button, Form, Input, InputNumber, Select, Upload } from "antd";
-import dynamic from "next/dynamic";
+/* eslint-disable @next/next/no-img-element */
+/* eslint-disable react/no-unescaped-entities */
 import DashboardLayout from "@/components/layouts/DashboardLayout";
-import { layout, validateMessages } from "@/constants/update";
-import { PlusOutlined, UploadOutlined } from "@ant-design/icons";
+import React from "react";
+import dynamic from "next/dynamic";
+import { useAppSelector } from "@/redux/hooks";
+import { RootState } from "@/redux/store";
+import { User } from "@/shared/user";
+import { useGetSingleEmployeeQuery } from "@/redux/features/user/userSlice";
+import { Spin } from "antd";
+
 const RootLayout = dynamic(
   () => import("../../components/layouts/RootLayout"),
   {
@@ -12,157 +17,99 @@ const RootLayout = dynamic(
 );
 
 const EmployeeProfile = () => {
-  const [imageUrl, setImageUrl] = useState(null);
+  const user = useAppSelector((state: RootState) => state?.auth?.user) as User;
+  const id = user?.id;
 
-  const onFinish = (values: any) => {
-    console.log(values.image);
-  };
-  const handleImageChange = (info: any) => {
-    if (info.file.status === "done") {
-      setImageUrl(info.file.response.url);
-    }
-  };
-
+  const { data: employee, isLoading } = useGetSingleEmployeeQuery(id);
+  const emp = employee?.data;
+  console.log(emp);
+  if (isLoading) {
+    <Spin />;
+  }
   return (
-    <div className="p-10 flex flex-col items-center justify-center">
-      <h1 className="text-[30px] font-semibold mb-6">
-        Hey! Please complete your profile
-      </h1>
-      <Form
-        {...layout}
-        name="nest-messages"
-        onFinish={onFinish}
-        validateMessages={validateMessages}
-        style={{ maxWidth: 600 }}
-      >
-        {/* Image Upload */}
-        <Form.Item name={["image"]} label="Image" rules={[{ required: true }]}>
-          <Upload
-            name="image"
-            action="/your-upload-endpoint"
-            listType="picture-card"
-            showUploadList={true}
-            onChange={handleImageChange}
-          >
-            {imageUrl ? (
-              <img src={imageUrl} alt="Profile" style={{ width: "100%" }} />
-            ) : (
-              <div>
-                <UploadOutlined />
-                <div className="ant-upload-text">Upload</div>
-              </div>
-            )}
-          </Upload>
-        </Form.Item>
-        <Form.Item
-          name={["companyName"]}
-          label="Company Name"
-          rules={[{ required: true }]}
-        >
-          <Input />
-        </Form.Item>
-        <Form.Item
-          name={["phoneNumber"]}
-          label="Phone Number"
-          rules={[{ type: "number" }]}
-        >
-          <InputNumber />
-        </Form.Item>
-        <Form.Item
-          name={["website"]}
-          label="Company Website"
-          rules={[{ required: true, type: "url" }]}
-        >
-          <Input />
-        </Form.Item>
-        <Form.Item
-          name={["twitterUrl"]}
-          label="Twitter Url"
-          rules={[{ required: true, type: "url" }]}
-        >
-          <Input />
-        </Form.Item>
-        <Form.Item
-          name={["facebookUrl"]}
-          label="Facebook Url"
-          rules={[{ required: true, type: "url" }]}
-        >
-          <Input />
-        </Form.Item>
-        <Form.Item
-          name={["linkedinUrl"]}
-          label="Linkedin Url"
-          rules={[{ required: true, type: "url" }]}
-        >
-          <Input />
-        </Form.Item>
-        <Form.Item
-          name={["companySize"]}
-          label="Company Size"
-          rules={[{ required: true }]}
-        >
-          <Select placeholder="Select Company Size">
-            <Select.Option value="Small">1-50</Select.Option>
-            <Select.Option value="Medium">51-100</Select.Option>
-            <Select.Option value="Large">101-500</Select.Option>
-          </Select>
-        </Form.Item>
-        <Form.Item name={["tin"]} label="Tin" rules={[{ required: true }]}>
-          <Input />
-        </Form.Item>
-        <Form.Item
-          name={["tradeLicenseNumber"]}
-          label="Trade License"
-          rules={[{ required: true, type: "number" }]}
-        >
-          <Input />
-        </Form.Item>
-        <Form.Item
-          name={["address"]}
-          label="Address"
-          rules={[{ required: true }]}
-        >
-          <Input />
-        </Form.Item>
-        <Form.Item
-          name={["recruiterName"]}
-          label="Recruiter Name"
-          rules={[{ required: true }]}
-        >
-          <Input />
-        </Form.Item>
-        <Form.Item
-          name={["recruiterDesignation"]}
-          label="Recruiter Designation"
-          rules={[{ required: true }]}
-        >
-          <Input />
-        </Form.Item>
-        <Form.Item
-          name={["recruiterNumber"]}
-          label="Recruiter Number"
-          rules={[{ required: true, type: "number" }]}
-        >
-          <Input />
-        </Form.Item>
-        <Form.Item
-          name={["description"]}
-          label="Description"
-          rules={[{ required: true }]}
-        >
-          <Input.TextArea />
-        </Form.Item>
-        <Form.Item wrapperCol={{ ...layout.wrapperCol, offset: 8 }}>
-          <Button className="bg-blue-800" type="primary" htmlType="submit">
-            Submit
-          </Button>
-        </Form.Item>
-      </Form>
+    <div>
+      <h2 className="text-[30px] text-center text-gray-500 font-semibold">
+        {employee?.data?.isComplete ? (
+          <p>Your Profile</p>
+        ) : (
+          <p>Please complete your profile</p>
+        )}
+      </h2>
+      <div className="bg-white shadow-lg p-6 md:p-10 rounded-lg mx-auto max-w-md">
+        <div className="flex flex-col md:flex-row items-center mb-6">
+          <img
+            src="https://res.cloudinary.com/arafatleo/image/upload/v1693120665/Pro%20careers/Alzheimer-bro_tgny8e.png"
+            alt="Profile"
+            className="w-24 h-24 rounded-full md:mr-6 mb-4 md:mb-0"
+          />
+          <div className="text-center md:text-left">
+            <div className="flex items-center">
+              <h2 className="text-xl md:text-2xl font-semibold">{emp?.name}</h2>
+              <p className="text-gray-500">({emp?.role})</p>
+            </div>
+          </div>
+        </div>
+        <div className="space-y-4">
+          <p>
+            <span className="font-semibold">Mobile Number:</span>{" "}
+            {emp?.phoneNumber}
+          </p>
+          <p>
+            <span className="font-semibold">Email:</span> {emp?.email}
+          </p>
+          <p>
+            <span className="font-semibold">Facebook Url:</span>{" "}
+            {emp?.facebookUrl}
+          </p>
+          <p>
+            <span className="font-semibold">Linkedin Url:</span>{" "}
+            {emp?.linkedinUrl}
+          </p>
+          <p>
+            <span className="font-semibold">Twitter Url:</span>{" "}
+            {emp?.twitterUrl}
+          </p>
+          <p>
+            <span className="font-semibold">Company Website:</span>{" "}
+            {emp?.website}
+          </p>
+
+          <p>
+            <span className="font-semibold">Address:</span> {emp?.address}
+          </p>
+          <p>
+            <span className="font-semibold">Company Size:</span>{" "}
+            {emp?.companySize}
+          </p>
+          <p>
+            <span className="font-semibold">Recruiter Name:</span>{" "}
+            {emp?.recruiterName}
+          </p>
+          <p>
+            <span className="font-semibold">Recruiter Designation:</span>{" "}
+            {emp?.recruiterDesignation}
+          </p>
+
+          <p>
+            <span className="font-semibold">Recruiter Number:</span>{" "}
+            {emp?.recruiterNumber}
+          </p>
+          <p>
+            <span className="font-semibold">Trade License Number:</span>{" "}
+            {emp?.tradeLicenseNumber}
+          </p>
+          <p>
+            <span className="font-semibold">Description:</span>{" "}
+            {emp?.description}
+          </p>
+        </div>
+      </div>
     </div>
   );
 };
 
 export default EmployeeProfile;
+
 EmployeeProfile.getLayout = function getLayout(page: any) {
   return (
     <RootLayout>

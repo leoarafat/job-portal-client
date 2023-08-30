@@ -1,3 +1,4 @@
+/* eslint-disable @next/next/no-img-element */
 import React, { useState } from "react";
 import {
   Button,
@@ -13,10 +14,14 @@ import dynamic from "next/dynamic";
 import DashboardLayout from "@/components/layouts/DashboardLayout";
 import { layout, validateMessages } from "@/constants/update";
 import { PlusOutlined, UploadOutlined } from "@ant-design/icons";
-import { useUpdateEmployeeMutation } from "@/redux/features/user/userSlice";
+import {
+  useGetSingleEmployeeQuery,
+  useUpdateEmployeeMutation,
+} from "@/redux/features/user/userSlice";
 import { useAppSelector } from "@/redux/hooks";
 import { User } from "@/shared/user";
 import { isErrorResponse, isSuccessResponse } from "@/shared/loginResponse";
+import { useRouter } from "next/router";
 const RootLayout = dynamic(
   () => import("../../components/layouts/RootLayout"),
   {
@@ -26,10 +31,16 @@ const RootLayout = dynamic(
 
 const UpdateEmployee = () => {
   const [imageUrl, setImageUrl] = useState(null);
+  const router = useRouter();
   const [UpdateEmployee, { isLoading }] = useUpdateEmployeeMutation();
-  const user = useAppSelector((employee) => employee.auth.user) as User;
+  const user = useAppSelector((employee) => employee?.auth?.user);
   const id = user?.id;
+  const { data: employee, refetch } = useGetSingleEmployeeQuery(id);
+
+  const emp = employee?.data;
+
   const onFinish = async (values: any) => {
+    console.log(values);
     try {
       const response = await UpdateEmployee({
         id,
@@ -37,6 +48,8 @@ const UpdateEmployee = () => {
       });
       if (isSuccessResponse(response)) {
         message.success("Profile updated successful");
+        refetch();
+        router.push("/employee-profile");
       } else if (isErrorResponse(response)) {
         message.error(response.error.data.message);
       }
@@ -49,7 +62,12 @@ const UpdateEmployee = () => {
       setImageUrl(info.file.response.url);
     }
   };
-
+  if (!user?.email) {
+    router.push("/login-employee");
+  }
+  if (isLoading) {
+    return <h1 className="text-[30px] text-center">Loading</h1>;
+  }
   return (
     <div className="p-10 flex flex-col items-center justify-center">
       <h1 className="text-[30px] font-semibold mb-6">
@@ -81,86 +99,126 @@ const UpdateEmployee = () => {
             )}
           </Upload>
         </Form.Item>
-        <Form.Item name={["name"]} label="Company Name">
+        <Form.Item
+          name={["name"]}
+          label="Company Name"
+          initialValue={emp?.name}
+          rules={[{ required: true }]}
+        >
           <Input />
         </Form.Item>
+
         <Form.Item
+          initialValue={emp?.phoneNumber}
           name={["phoneNumber"]}
           label="Phone Number"
-          rules={[{ type: "number" }]}
+          rules={[{ required: true }]}
         >
-          <InputNumber />
+          <Input />
         </Form.Item>
         <Form.Item
+          initialValue={emp?.website}
           name={["website"]}
           label="Company Website"
-          rules={[{ type: "url" }]}
+          rules={[{ type: "url", required: true }]}
         >
           <Input />
         </Form.Item>
         <Form.Item
+          initialValue={emp?.twitterUrl}
           name={["twitterUrl"]}
           label="Twitter Url"
-          rules={[{ type: "url" }]}
+          rules={[{ type: "url", required: true }]}
         >
           <Input />
         </Form.Item>
         <Form.Item
+          initialValue={emp?.facebookUrl}
           name={["facebookUrl"]}
           label="Facebook Url"
-          rules={[{ type: "url" }]}
+          rules={[{ type: "url", required: true }]}
         >
           <Input />
         </Form.Item>
         <Form.Item
+          initialValue={emp?.linkedinUrl}
           name={["linkedinUrl"]}
           label="Linkedin Url"
-          rules={[{ type: "url" }]}
+          rules={[{ type: "url", required: true }]}
         >
           <Input />
         </Form.Item>
-        <Form.Item name={["companySize"]} label="Company Size">
+        <Form.Item
+          initialValue={emp?.companySize}
+          name={["companySize"]}
+          label="Company Size"
+          rules={[{ required: true }]}
+        >
           <Select placeholder="Select Company Size">
             <Select.Option value="Small">1-50</Select.Option>
             <Select.Option value="Medium">51-100</Select.Option>
             <Select.Option value="Large">101-500</Select.Option>
           </Select>
         </Form.Item>
-        <Form.Item name={["tin"]} label="Tin">
+        <Form.Item
+          initialValue={emp?.tin}
+          name={["tin"]}
+          label="Tin"
+          rules={[{ required: true }]}
+        >
           <Input />
         </Form.Item>
         <Form.Item
+          initialValue={emp?.tradeLicenseNumber}
           name={["tradeLicenseNumber"]}
           label="Trade License"
-          rules={[{ type: "number" }]}
+          rules={[{ required: true }]}
         >
           <Input />
         </Form.Item>
-        <Form.Item name={["address"]} label="Address">
-          <Input />
-        </Form.Item>
-        <Form.Item name={["recruiterName"]} label="Recruiter Name">
+        <Form.Item
+          initialValue={emp?.address}
+          name={["address"]}
+          label="Address"
+          rules={[{ required: true }]}
+        >
           <Input />
         </Form.Item>
         <Form.Item
+          initialValue={emp?.recruiterName}
+          name={["recruiterName"]}
+          label="Recruiter Name"
+          rules={[{ required: true }]}
+        >
+          <Input />
+        </Form.Item>
+        <Form.Item
+          initialValue={emp?.recruiterDesignation}
           name={["recruiterDesignation"]}
           label="Recruiter Designation"
+          rules={[{ required: true }]}
         >
           <Input />
         </Form.Item>
         <Form.Item
+          initialValue={emp?.recruiterNumber}
           name={["recruiterNumber"]}
           label="Recruiter Number"
-          rules={[{ type: "number" }]}
+          rules={[{ required: true }]}
         >
           <Input />
         </Form.Item>
-        <Form.Item name={["description"]} label="Description">
+        <Form.Item
+          initialValue={emp?.description}
+          name={["description"]}
+          label="Description"
+          rules={[{ required: true }]}
+        >
           <Input.TextArea />
         </Form.Item>
         <Form.Item wrapperCol={{ ...layout.wrapperCol, offset: 8 }}>
           <Button className="bg-blue-800" type="primary" htmlType="submit">
-            {isLoading ? <Spin /> : "Submit"}
+            Submit
           </Button>
         </Form.Item>
       </Form>
