@@ -235,7 +235,7 @@ const RootLayout: React.FC<RootLayoutProps> = ({ children }) => {
                       className="flex items-center py-4"
                     >
                       <LogoutOutlined className="mr-1" />
-                      <button>Logout</button>
+                      <button onClick={toggleDrawer}>Login</button>
                     </li>
                   </button>
                 )}

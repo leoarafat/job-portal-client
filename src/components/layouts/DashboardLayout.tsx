@@ -16,6 +16,7 @@ import { GrUserSettings } from "react-icons/gr";
 import { MenuItem, getItem } from "@/shared/Dashboard";
 import { useAppSelector } from "@/redux/hooks";
 import { User } from "@/shared/user";
+import { useRouter } from "next/router";
 const { Header, Content, Sider } = Layout;
 
 interface RootLayoutProps {
@@ -23,6 +24,7 @@ interface RootLayoutProps {
 }
 
 const DashboardLayout: React.FC<RootLayoutProps> = ({ children }) => {
+  const router = useRouter();
   const user = useAppSelector((state) => state.auth.user) as User;
   const id = user?.id;
   const [collapsed, setCollapsed] = useState(false);
@@ -72,7 +74,9 @@ const DashboardLayout: React.FC<RootLayoutProps> = ({ children }) => {
       ),
     ];
   }
-
+  if (!user?.email) {
+    router.push("/");
+  }
   const combinedItems: MenuItem[] = [...filteredItems];
 
   return (

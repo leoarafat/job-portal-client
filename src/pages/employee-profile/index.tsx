@@ -7,7 +7,7 @@ import { useAppSelector } from "@/redux/hooks";
 import { RootState } from "@/redux/store";
 import { User } from "@/shared/user";
 import { useGetSingleEmployeeQuery } from "@/redux/features/user/userSlice";
-import { Spin } from "antd";
+import { Spin, message } from "antd";
 
 const RootLayout = dynamic(
   () => import("../../components/layouts/RootLayout"),
@@ -21,7 +21,11 @@ const EmployeeProfile = () => {
   const id = user?.id;
 
   const { data: employee, isLoading } = useGetSingleEmployeeQuery(id);
+
   const emp = employee?.data;
+  if (!employee?.data) {
+    return message.error("Something went wrong");
+  }
   console.log(emp);
   if (isLoading) {
     <Spin />;

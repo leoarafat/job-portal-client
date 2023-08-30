@@ -8,7 +8,7 @@ import { useGetSingleCandidateQuery } from "@/redux/features/user/userSlice";
 import { useAppSelector } from "@/redux/hooks";
 import { User } from "@/shared/user";
 import { RootState } from "@/redux/store";
-import { Spin } from "antd";
+import { Spin, message } from "antd";
 const RootLayout = dynamic(
   () => import("../../components/layouts/RootLayout"),
   {
@@ -23,9 +23,12 @@ const CandidateProfile = () => {
   const {
     data: candidate,
     isLoading,
-    isError,
-  } = useGetSingleCandidateQuery(id);
 
+    error,
+  } = useGetSingleCandidateQuery(id);
+  if (!candidate?.data) {
+    return message.error("Something went wrong");
+  }
   const {
     name,
     careerObjective,
@@ -47,8 +50,9 @@ const CandidateProfile = () => {
   } = candidate?.data;
 
   if (isLoading) {
-    return <Spin />;
+    <Spin />;
   }
+
   return (
     <div>
       <h2 className="text-[30px] text-center text-gray-500 font-semibold">

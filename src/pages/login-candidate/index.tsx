@@ -37,7 +37,7 @@ const LoginCandidate = () => {
         Cookies.set("candidate", JSON.stringify(user));
         dispatch(setUser(user));
         message.success("candidate Login Successful");
-        router.push(`/candidate-profile/${user?.id}`);
+        router.push(`/candidate-profile`);
       } else if (isErrorResponse(response)) {
         message.error(response.error.data.message);
       }
