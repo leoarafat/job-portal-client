@@ -81,9 +81,7 @@ const DashboardLayout = ({ children }: RootLayoutProps) => {
       ),
     ];
   }
-  // if (!user?.email) {
-  //   router.push("/");
-  // }
+
   const combinedItems: MenuItem[] = [...filteredItems];
 
   return (
@@ -128,3 +126,6 @@ const DashboardLayout = ({ children }: RootLayoutProps) => {
 };
 
 export default DashboardLayout;
+DashboardLayout.getLayout = function getLayout(page: any) {
+  return <RootLayout>{page}</RootLayout>;
+};
