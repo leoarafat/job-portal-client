@@ -46,26 +46,7 @@ const RootLayout: React.FC<RootLayoutProps> = ({ children }) => {
     window.addEventListener("scroll", handleShadow);
   }, []);
 
-  // const handleLogout = () => {
-  //   // Show a confirmation modal
-  //   Modal.confirm({
-  //     title: "Logout",
-  //     content: "Are you sure you want to log out?",
-  //     onOk: () => {
-  //       dispatch(clearUser());
-
-  //       if (user && user?.role === "Candidate") {
-  //         Cookies.remove("candidate");
-  //       } else if (user && user.role === "Employee") {
-  //         Cookies.remove("employee");
-  //       }
-
-  //       message.success("Logged out successfully", 2);
-  //     },
-  //   });
-  // };
   const handleLogout = () => {
-    // Display a confirmation alert using SweetAlert
     Swal.fire({
       title: "Logout",
       text: "Are you sure you want to log out?",

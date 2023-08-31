@@ -17,13 +17,20 @@ import { MenuItem, getItem } from "@/shared/Dashboard";
 import { useAppSelector } from "@/redux/hooks";
 import { User } from "@/shared/user";
 import { useRouter } from "next/router";
+import dynamic from "next/dynamic";
+const RootLayout = dynamic(
+  () => import("../../components/layouts/RootLayout"),
+  {
+    ssr: false,
+  }
+);
 const { Header, Content, Sider } = Layout;
 
 interface RootLayoutProps {
   children: ReactNode;
 }
 
-const DashboardLayout: React.FC<RootLayoutProps> = ({ children }) => {
+const DashboardLayout = ({ children }: RootLayoutProps) => {
   const router = useRouter();
   const user = useAppSelector((state) => state.auth.user) as User;
   const id = user?.id;
@@ -35,7 +42,7 @@ const DashboardLayout: React.FC<RootLayoutProps> = ({ children }) => {
   let filteredItems: MenuItem[] = [];
   if (user?.role === "Employee") {
     filteredItems = [
-      getItem("Dashboard", "1", <UserOutlined />, "/employee-profile"),
+      getItem("Profile", "1", <UserOutlined />, "/employee-profile"),
 
       getItem(
         "Update Profile",
@@ -43,14 +50,14 @@ const DashboardLayout: React.FC<RootLayoutProps> = ({ children }) => {
         <GrUserSettings />,
         `/employee-profile/${id}`
       ),
-      getItem("Previous Job", "3", <BarChartOutlined />, "/previous-job"),
+      getItem("Previous Job", "3", <BarChartOutlined />, "/previous-jobs"),
       getItem("Post a Job", "4", <FileAddOutlined />, "/post-job"),
       getItem("Resume Bank", "5", <ProfileOutlined />, "/resume-bank"),
       getItem("Transactions", "6", <TranslationOutlined />, "/transactions"),
     ];
   } else if (user?.role === "Candidate") {
     filteredItems = [
-      getItem("Dashboard", "1", <UserOutlined />, "/candidate-profile"),
+      getItem("Profile", "1", <UserOutlined />, "/candidate-profile"),
       getItem(
         "Update Profile",
         "2",
@@ -74,9 +81,9 @@ const DashboardLayout: React.FC<RootLayoutProps> = ({ children }) => {
       ),
     ];
   }
-  if (!user?.email) {
-    router.push("/");
-  }
+  // if (!user?.email) {
+  //   router.push("/");
+  // }
   const combinedItems: MenuItem[] = [...filteredItems];
 
   return (

@@ -1,6 +1,6 @@
 import dynamic from "next/dynamic";
 import React, { useState } from "react";
-import DashboardLayout from "../dashboard";
+
 const RootLayout = dynamic(
   () => import("../../components/layouts/RootLayout"),
   {
@@ -14,14 +14,20 @@ import { useAppSelector } from "@/redux/hooks";
 import { RootState } from "@/redux/store";
 import { usePostJobMutation } from "@/redux/features/job/jobSlice";
 import { User } from "@/shared/user";
-import { Spin, message } from "antd";
+import { Spin, message, notification } from "antd";
 import { isErrorResponse, isSuccessResponse } from "@/shared/loginResponse";
+import { useGetSingleEmployeeQuery } from "@/redux/features/user/userSlice";
+import { useRouter } from "next/router";
+import DashboardLayout from "@/components/layouts/DashboardLayout";
 
 const JobApplicationForm = () => {
   const [postJobs, { isLoading, isError, error, isSuccess }] =
     usePostJobMutation();
-  const user = useAppSelector((state: RootState) => state.auth.user) as User;
+  const user = useAppSelector((state: RootState) => state.auth.user);
   const id = user?.id;
+  const { data: employeeData } = useGetSingleEmployeeQuery(id);
+  console.log(employeeData?.data?.isComplete);
+  const router = useRouter();
   const [formData, setFormData] = useState({
     employeeId: id,
     title: "",
@@ -41,14 +47,20 @@ const JobApplicationForm = () => {
   });
   const handleFormSubmit = async (event: React.FormEvent) => {
     event.preventDefault();
-
+    if (!employeeData?.data?.isComplete) {
+      notification.error({
+        message: "Profile Incomplete",
+        description: "Please complete your profile before posting a job.",
+      });
+      router.push(`/employee-profile/${id}`);
+      return;
+    }
     try {
       const response = await postJobs(formData);
 
       if (isSuccessResponse(response)) {
-        const user = response.data.data;
-
         message.success("Job posted Successful");
+        router.push("/previous-jobs");
       } else if (isErrorResponse(response)) {
         message.error(response.error.data.message);
       }
@@ -89,6 +101,24 @@ const JobApplicationForm = () => {
         </div>
         <div className="mb-4">
           <label
+            htmlFor="companyName"
+            className="block text-sm font-medium text-gray-700"
+          >
+            Company Name
+          </label>
+          <input
+            type="text"
+            id="companyName"
+            name="companyName"
+            value={formData.companyName}
+            onChange={handleInputChange}
+            className="mt-1 p-2 border rounded-md w-full"
+            required
+          />
+        </div>
+
+        <div className="mb-4">
+          <label
             htmlFor="positionSummary"
             className="block text-sm font-medium text-gray-700"
           >
@@ -99,6 +129,40 @@ const JobApplicationForm = () => {
             id="positionSummery"
             name="positionSummery"
             value={formData.positionSummery}
+            onChange={handleInputChange}
+            className="mt-1 p-2 border rounded-md w-full"
+            rows={4}
+          />
+        </div>
+        <div className="mb-4">
+          <label
+            htmlFor="jobResponsibilities"
+            className="block text-sm font-medium text-gray-700"
+          >
+            Job Responsibilities
+          </label>
+          <textarea
+            required
+            id="jobResponsibilities"
+            name="jobResponsibilities"
+            value={formData.jobResponsibilities}
+            onChange={handleInputChange}
+            className="mt-1 p-2 border rounded-md w-full"
+            rows={4}
+          />
+        </div>
+        <div className="mb-4">
+          <label
+            htmlFor="benefits"
+            className="block text-sm font-medium text-gray-700"
+          >
+            Benefits
+          </label>
+          <textarea
+            required
+            id="benefits"
+            name="benefits"
+            value={formData.benefits}
             onChange={handleInputChange}
             className="mt-1 p-2 border rounded-md w-full"
             rows={4}
@@ -172,41 +236,7 @@ const JobApplicationForm = () => {
             ))}
           </select>
         </div>
-        <div className="mb-4">
-          <label
-            htmlFor="companyName"
-            className="block text-sm font-medium text-gray-700"
-          >
-            Company Name
-          </label>
-          <input
-            type="text"
-            id="companyName"
-            name="companyName"
-            value={formData.companyName}
-            onChange={handleInputChange}
-            className="mt-1 p-2 border rounded-md w-full"
-            required
-          />
-        </div>
 
-        <div className="mb-4">
-          <label
-            htmlFor="jobResponsibilities"
-            className="block text-sm font-medium text-gray-700"
-          >
-            Job Responsibilities
-          </label>
-          <textarea
-            required
-            id="jobResponsibilities"
-            name="jobResponsibilities"
-            value={formData.jobResponsibilities}
-            onChange={handleInputChange}
-            className="mt-1 p-2 border rounded-md w-full"
-            rows={4}
-          />
-        </div>
         <div className="mb-4">
           <label
             htmlFor="qualification"
@@ -258,23 +288,7 @@ const JobApplicationForm = () => {
             required
           />
         </div>
-        <div className="mb-4">
-          <label
-            htmlFor="benefits"
-            className="block text-sm font-medium text-gray-700"
-          >
-            Benefits
-          </label>
-          <input
-            type="text"
-            id="benefits"
-            name="benefits"
-            value={formData.benefits}
-            onChange={handleInputChange}
-            className="mt-1 p-2 border rounded-md w-full"
-            required
-          />
-        </div>
+
         <div className="mb-4">
           <label
             htmlFor="salary"

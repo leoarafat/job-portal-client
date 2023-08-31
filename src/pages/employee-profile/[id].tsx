@@ -1,27 +1,19 @@
 /* eslint-disable @next/next/no-img-element */
 import React, { useState } from "react";
-import {
-  Button,
-  Form,
-  Input,
-  InputNumber,
-  Select,
-  Spin,
-  Upload,
-  message,
-} from "antd";
+import { Button, Form, Input, Select, Spin, Upload, message } from "antd";
 import dynamic from "next/dynamic";
 import DashboardLayout from "@/components/layouts/DashboardLayout";
 import { layout, validateMessages } from "@/constants/update";
-import { PlusOutlined, UploadOutlined } from "@ant-design/icons";
+import { UploadOutlined } from "@ant-design/icons";
 import {
   useGetSingleEmployeeQuery,
   useUpdateEmployeeMutation,
 } from "@/redux/features/user/userSlice";
 import { useAppSelector } from "@/redux/hooks";
-import { User } from "@/shared/user";
+
 import { isErrorResponse, isSuccessResponse } from "@/shared/loginResponse";
 import { useRouter } from "next/router";
+import Loader from "@/components/loader/loader";
 const RootLayout = dynamic(
   () => import("../../components/layouts/RootLayout"),
   {
@@ -40,7 +32,6 @@ const UpdateEmployee = () => {
   const emp = employee?.data;
 
   const onFinish = async (values: any) => {
-    console.log(values);
     try {
       const response = await UpdateEmployee({
         id,
@@ -62,12 +53,13 @@ const UpdateEmployee = () => {
       setImageUrl(info.file.response.url);
     }
   };
+  if (isLoading) {
+    return <Loader />;
+  }
   if (!user?.email) {
     router.push("/login-employee");
   }
-  if (isLoading) {
-    return <h1 className="text-[30px] text-center">Loading</h1>;
-  }
+
   return (
     <div className="p-10 flex flex-col items-center justify-center">
       <h1 className="text-[30px] font-semibold mb-6">
@@ -218,7 +210,7 @@ const UpdateEmployee = () => {
         </Form.Item>
         <Form.Item wrapperCol={{ ...layout.wrapperCol, offset: 8 }}>
           <Button className="bg-blue-800" type="primary" htmlType="submit">
-            Submit
+            Update
           </Button>
         </Form.Item>
       </Form>

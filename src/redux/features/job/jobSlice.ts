@@ -16,14 +16,24 @@ const jobApi = api.injectEndpoints({
         method: "PATCH",
         body: data,
       }),
-      invalidatesTags: ["update"],
+      invalidatesTags: ["updateJob"],
     }),
 
     getAllJobs: builder.query({
+      query: () => `/jobs`,
+    }),
+    getJobById: builder.query({
       query: (id) => `/jobs/${id}`,
     }),
-    getSingleJob: builder.query({
-      query: () => `/jobs`,
+    getPreviousJobs: builder.query({
+      query: (id) => `/jobs/previous-jobs/${id}`,
+    }),
+    deleteJob: builder.mutation({
+      query: (id) => ({
+        url: `/jobs/${id}`,
+        method: "DELETE",
+      }),
+      invalidatesTags: ["deleteJob"],
     }),
   }),
 });
@@ -32,5 +42,7 @@ export const {
   usePostJobMutation,
   useUpdateJobMutation,
   useGetAllJobsQuery,
-  useGetSingleJobQuery,
+  useGetJobByIdQuery,
+  useGetPreviousJobsQuery,
+  useDeleteJobMutation,
 } = jobApi;

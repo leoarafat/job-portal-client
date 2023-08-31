@@ -8,6 +8,8 @@ import { RootState } from "@/redux/store";
 import { User } from "@/shared/user";
 import { useGetSingleEmployeeQuery } from "@/redux/features/user/userSlice";
 import { Spin, message } from "antd";
+import { useRouter } from "next/router";
+import Loader from "@/components/loader/loader";
 
 const RootLayout = dynamic(
   () => import("../../components/layouts/RootLayout"),
@@ -19,16 +21,16 @@ const RootLayout = dynamic(
 const EmployeeProfile = () => {
   const user = useAppSelector((state: RootState) => state?.auth?.user) as User;
   const id = user?.id;
-
+  const router = useRouter();
   const { data: employee, isLoading } = useGetSingleEmployeeQuery(id);
 
   const emp = employee?.data;
-  if (!employee?.data) {
-    return message.error("Something went wrong");
-  }
-  console.log(emp);
+
   if (isLoading) {
-    <Spin />;
+    return <Loader />;
+  }
+  if (!user?.email) {
+    router.push("/login-employee");
   }
   return (
     <div>
@@ -42,7 +44,7 @@ const EmployeeProfile = () => {
       <div className="bg-white shadow-lg p-6 md:p-10 rounded-lg mx-auto max-w-md">
         <div className="flex flex-col md:flex-row items-center mb-6">
           <img
-            src="https://res.cloudinary.com/arafatleo/image/upload/v1693120665/Pro%20careers/Alzheimer-bro_tgny8e.png"
+            src="https://res.cloudinary.com/arafatleo/image/upload/v1693461228/Pro%20careers/images_gclosy.jpg"
             alt="Profile"
             className="w-24 h-24 rounded-full md:mr-6 mb-4 md:mb-0"
           />

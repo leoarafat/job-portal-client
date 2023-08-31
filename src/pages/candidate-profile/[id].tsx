@@ -22,6 +22,7 @@ import { useAppSelector } from "@/redux/hooks";
 import { User } from "@/shared/user";
 import { isErrorResponse, isSuccessResponse } from "@/shared/loginResponse";
 import { useRouter } from "next/router";
+import Loader from "@/components/loader/loader";
 
 const RootLayout = dynamic(
   () => import("../../components/layouts/RootLayout"),
@@ -66,12 +67,13 @@ const UpdateCandidate = () => {
       setImageUrl(info.file.response.url);
     }
   };
+  if (isLoading) {
+    return <Loader />;
+  }
   if (!user?.email) {
     router.push("/login-candidate");
   }
-  if (isLoading) {
-    return <h1 className="text-[30px] text-center">Loading</h1>;
-  }
+
   return (
     <div>
       <div className="p-10 flex flex-col items-center justify-center">
@@ -223,7 +225,7 @@ const UpdateCandidate = () => {
           </Form.Item>
           <Form.Item wrapperCol={{ ...layout.wrapperCol, offset: 8 }}>
             <Button className="bg-blue-800" type="primary" htmlType="submit">
-              Submit
+              Update
             </Button>
           </Form.Item>
         </Form>

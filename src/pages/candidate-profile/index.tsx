@@ -9,6 +9,8 @@ import { useAppSelector } from "@/redux/hooks";
 import { User } from "@/shared/user";
 import { RootState } from "@/redux/store";
 import { Spin, message } from "antd";
+import { useRouter } from "next/router";
+import Loader from "@/components/loader/loader";
 const RootLayout = dynamic(
   () => import("../../components/layouts/RootLayout"),
   {
@@ -20,12 +22,8 @@ const CandidateProfile = () => {
   const user = useAppSelector((state: RootState) => state.auth.user) as User;
   const id = user?.id;
 
-  const {
-    data: candidate,
-    isLoading,
-
-    error,
-  } = useGetSingleCandidateQuery(id);
+  const { data: candidate, isLoading, error } = useGetSingleCandidateQuery(id);
+  const router = useRouter();
   if (!candidate?.data) {
     return message.error("Something went wrong");
   }
@@ -50,9 +48,11 @@ const CandidateProfile = () => {
   } = candidate?.data;
 
   if (isLoading) {
-    <Spin />;
+    return <Loader />;
   }
-
+  if (!user?.email) {
+    router.push("/login-employee");
+  }
   return (
     <div>
       <h2 className="text-[30px] text-center text-gray-500 font-semibold">

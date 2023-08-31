@@ -16,12 +16,10 @@ export default function App({ Component, pageProps }: AppProps) {
   return (
     <>
       <Provider store={store}>
-        {/* <PersistGate loading={null} persistor={persistor}> */}
         <Toaster position="bottom-right" />
         <SessionProvider session={pageProps.session}>
           {getLayout(<Component {...pageProps} />)}
         </SessionProvider>
-        {/* </PersistGate> */}
       </Provider>
     </>
   );
