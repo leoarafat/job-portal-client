@@ -27,11 +27,7 @@ const AllJobs = () => {
   const [selectedLocationType, setSelectedLocationType] = useState("");
 
   const { data: allJobs, isLoading } = useGetAllJobsQuery({});
-  console.log(allJobs);
-  // console.log(searchValue);
-  // console.log(selectedJobType);
-  // console.log(selectedJobCategory);
-  // console.log(selectedLocationType);
+
   const toggleFilter = () => {
     setIsFilterOpen(!isFilterOpen);
   };

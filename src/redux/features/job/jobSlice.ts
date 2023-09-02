@@ -26,6 +26,7 @@ const jobApi = api.injectEndpoints({
     getJobById: builder.query({
       query: (id) => `/jobs/${id}`,
     }),
+
     getPreviousJobs: builder.query({
       query: (id) => `/jobs/previous-jobs/${id}`,
     }),
@@ -43,6 +44,9 @@ const jobApi = api.injectEndpoints({
         body: data,
       }),
     }),
+    getMyJob: builder.query({
+      query: ({ id }) => `/jobs/my-application/${id}`,
+    }),
   }),
 });
 
@@ -54,4 +58,5 @@ export const {
   useGetPreviousJobsQuery,
   useDeleteJobMutation,
   useApplyJobMutation,
+  useGetMyJobQuery,
 } = jobApi;

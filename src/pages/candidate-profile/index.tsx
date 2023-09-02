@@ -8,7 +8,7 @@ import { useGetSingleCandidateQuery } from "@/redux/features/user/userSlice";
 import { useAppSelector } from "@/redux/hooks";
 import { User } from "@/shared/user";
 import { RootState } from "@/redux/store";
-import { Spin, message } from "antd";
+import { message } from "antd";
 import { useRouter } from "next/router";
 import Loader from "@/components/loader/loader";
 const RootLayout = dynamic(
