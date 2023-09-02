@@ -7,12 +7,7 @@ export const jobCategories = [
   "DatabaseAdministration",
   "DevOps",
   "CloudComputing",
-  "ITConsulting",
-  "SystemAnalysis",
   "UIUXDesign",
-  "QualityAssurance",
-  "ITSupport",
-  "BusinessIntelligence",
   "MobileAppDevelopment",
 ];
 
