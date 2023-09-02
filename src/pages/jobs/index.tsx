@@ -9,6 +9,8 @@ import { Select } from "antd";
 const { Option } = Select;
 
 import { jobCategories, jobTypes, locations } from "@/shared/jobPostUtils";
+import { useGetAllJobsQuery } from "@/redux/features/job/jobSlice";
+import Loader from "@/components/loader/loader";
 
 const RootLayout = dynamic(
   () => import("../../components/layouts/RootLayout"),
@@ -24,10 +26,12 @@ const AllJobs = () => {
   const [selectedJobCategory, setSelectedJobCategory] = useState("");
   const [selectedLocationType, setSelectedLocationType] = useState("");
 
-  console.log(searchValue);
-  console.log(selectedJobType);
-  console.log(selectedJobCategory);
-  console.log(selectedLocationType);
+  const { data: allJobs, isLoading } = useGetAllJobsQuery({});
+  console.log(allJobs);
+  // console.log(searchValue);
+  // console.log(selectedJobType);
+  // console.log(selectedJobCategory);
+  // console.log(selectedLocationType);
   const toggleFilter = () => {
     setIsFilterOpen(!isFilterOpen);
   };
@@ -46,6 +50,9 @@ const AllJobs = () => {
   const handleLocationTypeChange = (value: string) => {
     setSelectedLocationType(value);
   };
+  if (isLoading) {
+    return <Loader />;
+  }
   return (
     <div className="container mx-auto p-4">
       {/* Header */}
@@ -141,32 +148,15 @@ const AllJobs = () => {
                 ))}
               </Select>
             </div>
-
-            {/* Add more filter options based on enums */}
           </div>
         </aside>
 
         {/* Job Listings */}
         <div className="lg:w-3/4">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
-            {/* Individual Job Listings */}
-            <JobCard />
-            <JobCard />
-            <JobCard />
-            <JobCard />
-            <JobCard />
-            <JobCard />
-            <JobCard />
-            <JobCard />
-            <JobCard />
-            <JobCard />
-            <JobCard />
-            <JobCard />
-            <JobCard />
-            <JobCard />
-            <JobCard />
-            <JobCard />
-            <JobCard />
+            {allJobs?.data?.map((job: { id: React.Key | null | undefined }) => (
+              <JobCard key={job.id} job={job} />
+            ))}
           </div>
         </div>
       </main>

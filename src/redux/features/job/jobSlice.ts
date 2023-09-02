@@ -22,6 +22,7 @@ const jobApi = api.injectEndpoints({
     getAllJobs: builder.query({
       query: () => `/jobs`,
     }),
+
     getJobById: builder.query({
       query: (id) => `/jobs/${id}`,
     }),

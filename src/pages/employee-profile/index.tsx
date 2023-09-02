@@ -29,6 +29,9 @@ const EmployeeProfile = () => {
   if (isLoading) {
     return <Loader />;
   }
+  if (!employee?.data) {
+    return message.error("Something went wrong");
+  }
   if (!user?.email) {
     router.push("/login-employee");
   }

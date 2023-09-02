@@ -7,43 +7,45 @@ import {
   HeartOutlined,
   ShareAltOutlined,
 } from "@ant-design/icons";
+import Link from "next/link";
 
-const JobCard = () => {
+const JobCard = ({ job }: any) => {
+  console.log(job);
   return (
     <div className="bg-white rounded-lg shadow-lg p-4">
-      {/* Job Title */}
-      <h2 className="text-xl font-semibold">Front-end Developer</h2>
+      <h2 className="text-xl font-semibold">{job?.title}</h2>
 
-      {/* Company Name */}
-      <p className="text-gray-600">Programming Hero</p>
+      <p className="text-gray-600">{job?.companyName}</p>
 
-      {/* Job Details */}
       <div className="mt-4">
         <p className="text-gray-800">
           <span className="font-semibold">
             <EnvironmentOutlined /> Location:
           </span>{" "}
-          Khulna
+          {job?.location}
         </p>
         <p className="text-gray-800">
           <span className="font-semibold">
             <DollarCircleOutlined /> Salary:
           </span>{" "}
-          60K
+          {job?.Salary}
         </p>
         <p className="text-gray-800">
-          <span className="font-semibold">
+          <a className="font-semibold">
             <CalendarOutlined /> Deadline:
-          </span>{" "}
-          @0Tarikh
+          </a>{" "}
+          {job?.deadline}
         </p>
       </div>
 
       {/* Action Buttons */}
       <div className="mt-6 flex items-center space-x-4">
-        <button className="bg-blue-500 text-white px-4 py-2 rounded-full">
-          View Details
-        </button>
+        <Link href={`jobs/${job?.id}`}>
+          {" "}
+          <button className="bg-blue-500 text-white px-4 py-2 rounded-full">
+            View Details
+          </button>
+        </Link>
         <button className="text-red-500 hover:text-red-700">
           <HeartOutlined /> Saved
         </button>
