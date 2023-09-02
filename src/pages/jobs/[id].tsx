@@ -1,6 +1,7 @@
 import JobDetails from "@/components/filtering/JobDetails";
 import React from "react";
 import dynamic from "next/dynamic";
+
 const RootLayout = dynamic(
   () => import("../../components/layouts/RootLayout"),
   {

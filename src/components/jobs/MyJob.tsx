@@ -2,13 +2,20 @@ import React from "react";
 import { useGetMyJobQuery } from "@/redux/features/job/jobSlice";
 import { useAppSelector } from "@/redux/hooks";
 import { RootState } from "@/redux/store";
+import Loader from "../loader/loader";
+import { message } from "antd";
 
 const MyJobList: React.FC = () => {
   const user = useAppSelector((state: RootState) => state.auth.user);
   const candidateId = user?.id;
 
-  const { data: myJob } = useGetMyJobQuery({ candidateId });
-
+  const { data: myJob, isLoading } = useGetMyJobQuery({ candidateId });
+  if (!myJob) {
+    return message.error("Something went wrong");
+  }
+  if (isLoading) {
+    return <Loader />;
+  }
   const handleDetailsClick = (jobId: string) => {
     // Handle the details action, e.g., show a modal or navigate to a details page.
   };

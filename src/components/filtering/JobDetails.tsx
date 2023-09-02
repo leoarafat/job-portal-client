@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Button, message, notification, Modal } from "antd";
+import { Button, message, notification, Modal, Input } from "antd";
 
 import { useRouter } from "next/router";
 import {
@@ -11,9 +11,9 @@ import { useAppSelector } from "@/redux/hooks";
 import { RootState } from "@/redux/store";
 import { useGetSingleCandidateQuery } from "@/redux/features/user/userSlice";
 import { User } from "@/shared/user";
-import TextArea from "antd/es/input/TextArea";
-import { isErrorResponse, isSuccessResponse } from "@/shared/loginResponse";
 
+import { isErrorResponse, isSuccessResponse } from "@/shared/loginResponse";
+const { TextArea } = Input;
 const JobDetails = () => {
   const [isModalVisible, setIsModalVisible] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -26,7 +26,7 @@ const JobDetails = () => {
   const { data: job, isLoading, isError, refetch } = useGetJobByIdQuery(id);
 
   //! Candidate
-  const user = useAppSelector((state: RootState) => state.auth.user);
+  const user = useAppSelector((state: RootState) => state.auth.user) as User;
   const candidateId = user?.id;
   //! Candidate data
   const { data: candidateData } = useGetSingleCandidateQuery(candidateId);
@@ -85,7 +85,7 @@ const JobDetails = () => {
       if (isSuccessResponse(response)) {
         message.success("Job applied successful");
 
-        // router.push("/jobs");
+        router.push("/jobs");
         refetch();
       } else if (isErrorResponse(response)) {
         message.error(response.error.data.message);

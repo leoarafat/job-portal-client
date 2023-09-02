@@ -1,36 +1,3 @@
-// import DashboardLayout from "@/components/layouts/DashboardLayout";
-
-// import React from "react";
-// import dynamic from "next/dynamic";
-// import PrivateRoute from "@/utils/PrivateRoutes";
-// const RootLayout = dynamic(
-//   () => import("../../components/layouts/RootLayout"),
-//   {
-//     ssr: false,
-//   }
-// );
-// const Dashboard = () => {
-//   return (
-//     <div>
-//       <p className="text-gray-600 text-[25px] text-center font-semibold">
-//         Welcome to ProCareers
-//       </p>
-//     </div>
-//   );
-// };
-
-// export default Dashboard;
-// Dashboard.getLayout = function getLayout(page: any) {
-//   return (
-//     <PrivateRoute>
-//       {" "}
-//       <RootLayout>
-//         <DashboardLayout>{page}</DashboardLayout>
-//       </RootLayout>
-//     </PrivateRoute>
-//   );
-// };
-
 import React, { ReactNode, useState } from "react";
 import Link from "next/link";
 import {
@@ -97,7 +64,7 @@ const DashboardLayout = ({ children }: RootLayoutProps) => {
         `/candidate-profile/${id}`
       ),
       getItem("Applied Jobs", "2", <OrderedListOutlined />, "/applied-jobs"),
-      getItem("My Classes", "3", <UnorderedListOutlined />, "/applied-jobs"),
+      getItem("My Classes", "3", <UnorderedListOutlined />, "/my-class"),
       getItem(
         "Skill Enhancement",
         "4",
