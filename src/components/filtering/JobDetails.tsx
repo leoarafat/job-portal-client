@@ -1,19 +1,38 @@
-import React, { use } from "react";
-import { Button, message } from "antd";
+import React, { useState } from "react";
+import { Button, message, notification, Modal } from "antd";
 
 import { useRouter } from "next/router";
-import { useGetJobByIdQuery } from "@/redux/features/job/jobSlice";
+import {
+  useApplyJobMutation,
+  useGetJobByIdQuery,
+} from "@/redux/features/job/jobSlice";
 import Loader from "../loader/loader";
 import { useAppSelector } from "@/redux/hooks";
 import { RootState } from "@/redux/store";
+import { useGetSingleCandidateQuery } from "@/redux/features/user/userSlice";
+import { User } from "@/shared/user";
+import TextArea from "antd/es/input/TextArea";
+import { isErrorResponse, isSuccessResponse } from "@/shared/loginResponse";
 
 const JobDetails = () => {
+  const [isModalVisible, setIsModalVisible] = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [coverLetter, setCoverLetter] = useState("");
+  const [whyHire, setWhyHire] = useState("");
   const router = useRouter();
+  //! Job id
   const { id } = router.query;
-  const { data: job, isLoading, isError } = useGetJobByIdQuery(id);
+  //! Job data
+  const { data: job, isLoading, isError, refetch } = useGetJobByIdQuery(id);
 
+  //! Candidate
   const user = useAppSelector((state: RootState) => state.auth.user);
   const candidateId = user?.id;
+  //! Candidate data
+  const { data: candidateData } = useGetSingleCandidateQuery(candidateId);
+
+  //! Apply Job
+  const [applyJob] = useApplyJobMutation();
 
   if (isLoading) {
     return <Loader />;
@@ -44,7 +63,44 @@ const JobDetails = () => {
     type,
   } = job?.data;
 
-  const handleApply = () => {};
+  const showModal = () => {
+    if (!candidateData?.data?.isComplete) {
+      notification.error({
+        message: "Please complete your profile",
+        description: "You need to complete your profile before applying.",
+      });
+      router.push(`/candidate-profile/${candidateId}`);
+    } else {
+      setIsModalVisible(true);
+    }
+  };
+
+  const handleOk = async () => {
+    setIsSubmitting(true);
+    try {
+      const response = await applyJob({
+        data: { candidateId, jobId: id, assessment: whyHire, coverLetter },
+      });
+      console.log(response);
+      if (isSuccessResponse(response)) {
+        message.success("Job applied successful");
+
+        // router.push("/jobs");
+        refetch();
+      } else if (isErrorResponse(response)) {
+        message.error(response.error.data.message);
+      }
+    } catch (error) {
+      console.log(error);
+    }
+    setIsModalVisible(false);
+    setIsSubmitting(false);
+  };
+
+  const handleCancel = () => {
+    // Handle Cancel button click
+    setIsModalVisible(false);
+  };
 
   return (
     <div className="container mx-auto p-4">
@@ -124,9 +180,10 @@ const JobDetails = () => {
         <div className="mt-6 flex items-center space-x-4">
           {user?.role === "Candidate" ? (
             <Button
-              onClick={handleApply}
+              onClick={showModal}
               type="primary"
               className="bg-blue-500 hover:bg-blue-600 text-white rounded-full"
+              loading={isSubmitting}
             >
               Apply Now
             </Button>
@@ -135,6 +192,27 @@ const JobDetails = () => {
           )}
         </div>
       </div>
+      <Modal
+        title={title}
+        visible={isModalVisible}
+        onOk={handleOk}
+        onCancel={handleCancel}
+        confirmLoading={isSubmitting}
+      >
+        <TextArea
+          placeholder="Cover Letter"
+          value={coverLetter}
+          onChange={(e) => setCoverLetter(e.target.value)}
+          rows={4}
+          className="mb-1"
+        />
+        <TextArea
+          placeholder="Why should we hire you?"
+          value={whyHire}
+          onChange={(e) => setWhyHire(e.target.value)}
+          rows={4}
+        />
+      </Modal>
     </div>
   );
 };

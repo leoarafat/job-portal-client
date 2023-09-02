@@ -23,15 +23,15 @@ const EmployeeProfile = () => {
   const id = user?.id;
   const router = useRouter();
   const { data: employee, isLoading } = useGetSingleEmployeeQuery(id);
-
+  if (!employee?.data) {
+    return message.error("Something went wrong");
+  }
   const emp = employee?.data;
 
   if (isLoading) {
     return <Loader />;
   }
-  if (!employee?.data) {
-    return message.error("Something went wrong");
-  }
+
   if (!user?.email) {
     router.push("/login-employee");
   }

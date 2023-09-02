@@ -24,7 +24,9 @@ const CandidateProfile = () => {
 
   const { data: candidate, isLoading, error } = useGetSingleCandidateQuery(id);
   const router = useRouter();
-
+  if (!candidate?.data) {
+    return message.error("Something went wrong");
+  }
   const {
     name,
     careerObjective,
@@ -48,9 +50,7 @@ const CandidateProfile = () => {
   if (isLoading) {
     return <Loader />;
   }
-  if (!candidate?.data) {
-    return message.error("Something went wrong");
-  }
+
   if (!user?.email) {
     router.push("/login-employee");
   }

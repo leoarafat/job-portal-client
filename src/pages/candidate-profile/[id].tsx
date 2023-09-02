@@ -121,9 +121,9 @@ const UpdateCandidate = () => {
             initialValue={candidate?.data?.nidNumber}
             name={["nidNumber"]}
             label="Nid Number"
-            rules={[{ type: "number", required: true }]}
+            rules={[{ required: true }]}
           >
-            <InputNumber />
+            <Input />
           </Form.Item>
           <Form.Item
             initialValue={candidate?.data?.gender}
@@ -141,9 +141,9 @@ const UpdateCandidate = () => {
             initialValue={candidate?.data?.mobileNumber}
             name={["mobileNumber"]}
             label="Phone Number"
-            rules={[{ type: "number", required: true }]}
+            rules={[{ required: true }]}
           >
-            <InputNumber />
+            <Input />
           </Form.Item>
           <Form.Item
             initialValue={candidate?.data?.portfolioUrl}

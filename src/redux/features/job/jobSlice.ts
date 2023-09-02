@@ -36,6 +36,13 @@ const jobApi = api.injectEndpoints({
       }),
       invalidatesTags: ["deleteJob"],
     }),
+    applyJob: builder.mutation({
+      query: ({ data }) => ({
+        url: `/jobs/apply`,
+        method: "POST",
+        body: data,
+      }),
+    }),
   }),
 });
 
@@ -46,4 +53,5 @@ export const {
   useGetJobByIdQuery,
   useGetPreviousJobsQuery,
   useDeleteJobMutation,
+  useApplyJobMutation,
 } = jobApi;
