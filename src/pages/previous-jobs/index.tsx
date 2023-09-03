@@ -5,10 +5,11 @@ import { useAppSelector } from "@/redux/hooks";
 import { RootState } from "@/redux/store";
 import { useGetPreviousJobsQuery } from "@/redux/features/job/jobSlice";
 import { Spin } from "antd";
-import DashboardLayout from "@/components/layouts/DashboardLayout";
+
 import PreviousJobsItem from "@/components/jobs/PreviousJobsItem";
 import { useRouter } from "next/router";
 import Loader from "@/components/loader/loader";
+import DashboardLayout from "../dashboard";
 
 const RootLayout = dynamic(
   () => import("../../components/layouts/RootLayout"),

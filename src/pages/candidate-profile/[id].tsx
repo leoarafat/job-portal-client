@@ -11,7 +11,7 @@ import {
   message,
 } from "antd";
 import dynamic from "next/dynamic";
-import DashboardLayout from "@/components/layouts/DashboardLayout";
+
 import { layout, validateMessages } from "@/constants/update";
 import { UploadOutlined } from "@ant-design/icons";
 import {
@@ -23,6 +23,8 @@ import { User } from "@/shared/user";
 import { isErrorResponse, isSuccessResponse } from "@/shared/loginResponse";
 import { useRouter } from "next/router";
 import Loader from "@/components/loader/loader";
+import { RootState } from "@/redux/store";
+import DashboardLayout from "../dashboard";
 
 const RootLayout = dynamic(
   () => import("../../components/layouts/RootLayout"),
@@ -34,7 +36,7 @@ const UpdateCandidate = () => {
   const [imageUrl, setImageUrl] = useState(null);
 
   const router = useRouter();
-  const user = useAppSelector((candidate) => candidate?.auth?.user) as User;
+  const user = useAppSelector((state: RootState) => state?.auth?.user) as User;
 
   const id = user?.id;
   const [UpdateCandidate, { isLoading, isError, error }] =

@@ -8,7 +8,7 @@ import {
   TranslationOutlined,
   OrderedListOutlined,
   TeamOutlined,
-  UnorderedListOutlined,
+  FileDoneOutlined,
 } from "@ant-design/icons";
 
 import { Breadcrumb, Layout, Menu, theme } from "antd";
@@ -64,7 +64,7 @@ const DashboardLayout = ({ children }: RootLayoutProps) => {
         `/candidate-profile/${id}`
       ),
       getItem("Applied Jobs", "2", <OrderedListOutlined />, "/applied-jobs"),
-      getItem("My Classes", "3", <UnorderedListOutlined />, "/my-class"),
+      getItem("Saved List", "3", <FileDoneOutlined />, "/saved-job"),
       getItem(
         "Skill Enhancement",
         "4",

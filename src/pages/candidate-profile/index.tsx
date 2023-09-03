@@ -1,6 +1,5 @@
 /* eslint-disable @next/next/no-img-element */
 /* eslint-disable react/no-unescaped-entities */
-import DashboardLayout from "@/components/layouts/DashboardLayout";
 
 import React from "react";
 import dynamic from "next/dynamic";
@@ -11,6 +10,7 @@ import { RootState } from "@/redux/store";
 import { message } from "antd";
 import { useRouter } from "next/router";
 import Loader from "@/components/loader/loader";
+import DashboardLayout from "../dashboard";
 const RootLayout = dynamic(
   () => import("../../components/layouts/RootLayout"),
   {
@@ -24,9 +24,10 @@ const CandidateProfile = () => {
 
   const { data: candidate, isLoading, error } = useGetSingleCandidateQuery(id);
   const router = useRouter();
-  if (!candidate?.data) {
-    return message.error("Something went wrong");
+  if (isLoading) {
+    return <Loader />;
   }
+
   const {
     name,
     careerObjective,
@@ -46,11 +47,9 @@ const CandidateProfile = () => {
     photoUrl,
     role,
   } = candidate?.data;
-
-  if (isLoading) {
-    return <Loader />;
+  if (!candidate?.data) {
+    return message.error("Something went wrong");
   }
-
   if (!user?.email) {
     router.push("/login-employee");
   }

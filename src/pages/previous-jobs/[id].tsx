@@ -1,5 +1,5 @@
 import React from "react";
-import DashboardLayout from "@/components/layouts/DashboardLayout";
+
 import { useRouter } from "next/router";
 import Swal from "sweetalert2";
 import {
@@ -11,6 +11,7 @@ import Image from "next/image";
 import Link from "next/link";
 import dynamic from "next/dynamic";
 import Loader from "@/components/loader/loader";
+import DashboardLayout from "../dashboard";
 const RootLayout = dynamic(
   () => import("../../components/layouts/RootLayout"),
   {

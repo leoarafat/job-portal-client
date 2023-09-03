@@ -1,4 +1,3 @@
-import DashboardLayout from "@/components/layouts/DashboardLayout";
 import React from "react";
 import dynamic from "next/dynamic";
 import { Form, Input, Select, Button, Spin, message } from "antd";
@@ -10,6 +9,7 @@ import {
 } from "@/redux/features/job/jobSlice";
 
 import { isErrorResponse, isSuccessResponse } from "@/shared/loginResponse";
+import DashboardLayout from "../dashboard";
 const { Option } = Select;
 const RootLayout = dynamic(
   () => import("../../components/layouts/RootLayout"),

@@ -1,6 +1,6 @@
 /* eslint-disable @next/next/no-img-element */
 /* eslint-disable react/no-unescaped-entities */
-import DashboardLayout from "@/components/layouts/DashboardLayout";
+
 import React from "react";
 import dynamic from "next/dynamic";
 import { useAppSelector } from "@/redux/hooks";
@@ -10,6 +10,7 @@ import { useGetSingleEmployeeQuery } from "@/redux/features/user/userSlice";
 import { Spin, message } from "antd";
 import { useRouter } from "next/router";
 import Loader from "@/components/loader/loader";
+import DashboardLayout from "../dashboard";
 
 const RootLayout = dynamic(
   () => import("../../components/layouts/RootLayout"),
@@ -23,14 +24,13 @@ const EmployeeProfile = () => {
   const id = user?.id;
   const router = useRouter();
   const { data: employee, isLoading } = useGetSingleEmployeeQuery(id);
+  if (isLoading) {
+    return <Loader />;
+  }
   if (!employee?.data) {
     return message.error("Something went wrong");
   }
   const emp = employee?.data;
-
-  if (isLoading) {
-    return <Loader />;
-  }
 
   if (!user?.email) {
     router.push("/login-employee");

@@ -10,20 +10,16 @@ const MyJobList: React.FC = () => {
   const candidateId = user?.id;
 
   const { data: myJob, isLoading } = useGetMyJobQuery({ candidateId });
-  if (!myJob) {
-    return message.error("Something went wrong");
-  }
+
   if (isLoading) {
     return <Loader />;
   }
-  const handleDetailsClick = (jobId: string) => {
-    // Handle the details action, e.g., show a modal or navigate to a details page.
-  };
+  const handleDetailsClick = (jobId: string) => {};
 
-  const handleDeleteClick = (jobId: string) => {
-    // Handle the delete action, e.g., show a confirmation modal.
-  };
-
+  const handleDeleteClick = (jobId: string) => {};
+  if (!myJob) {
+    return message.error("Something went wrong");
+  }
   return (
     <div>
       <h1 className="text-2xl text-center text-gray-600 font-semibold my-4">

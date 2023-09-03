@@ -43,7 +43,7 @@ const JobDetails = () => {
     return message.error("Something Went Wrong");
   }
 
-  if (!job) {
+  if (!job?.data) {
     return null;
   }
 

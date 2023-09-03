@@ -18,7 +18,7 @@ import { Spin, message, notification } from "antd";
 import { isErrorResponse, isSuccessResponse } from "@/shared/loginResponse";
 import { useGetSingleEmployeeQuery } from "@/redux/features/user/userSlice";
 import { useRouter } from "next/router";
-import DashboardLayout from "@/components/layouts/DashboardLayout";
+import DashboardLayout from "../dashboard";
 
 const JobApplicationForm = () => {
   const [postJobs, { isLoading, isError, error, isSuccess }] =

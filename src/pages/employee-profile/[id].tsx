@@ -2,7 +2,7 @@
 import React, { useState } from "react";
 import { Button, Form, Input, Select, Spin, Upload, message } from "antd";
 import dynamic from "next/dynamic";
-import DashboardLayout from "@/components/layouts/DashboardLayout";
+
 import { layout, validateMessages } from "@/constants/update";
 import { UploadOutlined } from "@ant-design/icons";
 import {
@@ -14,6 +14,7 @@ import { useAppSelector } from "@/redux/hooks";
 import { isErrorResponse, isSuccessResponse } from "@/shared/loginResponse";
 import { useRouter } from "next/router";
 import Loader from "@/components/loader/loader";
+import DashboardLayout from "../dashboard";
 const RootLayout = dynamic(
   () => import("../../components/layouts/RootLayout"),
   {

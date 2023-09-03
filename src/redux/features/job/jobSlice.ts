@@ -54,6 +54,9 @@ const jobApi = api.injectEndpoints({
     getMyJob: builder.query({
       query: ({ id }) => `/jobs/my-application/${id}`,
     }),
+    getSavedJob: builder.query({
+      query: ({ id }) => `/jobs/saved-job/${id}`,
+    }),
   }),
 });
 
@@ -67,4 +70,5 @@ export const {
   useApplyJobMutation,
   useGetMyJobQuery,
   useSaveJobsMutation,
+  useGetSavedJobQuery,
 } = jobApi;
