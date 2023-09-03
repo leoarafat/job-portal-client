@@ -6,7 +6,7 @@ export const api = createApi({
     // baseUrl: "https://job-box-two.vercel.app/api/v1",
     baseUrl: "http://localhost:5000/api/v1",
   }),
-  tagTypes: ["post", "update", "deleteJob", "updateJob"],
+  tagTypes: ["post", "update", "deleteJob", "updateJob", "deleteSavedJob"],
 
   endpoints: () => ({}),
 });

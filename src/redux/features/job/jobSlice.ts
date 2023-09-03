@@ -57,6 +57,13 @@ const jobApi = api.injectEndpoints({
     getSavedJob: builder.query({
       query: ({ id }) => `/jobs/saved-job/${id}`,
     }),
+    deleteSavedJob: builder.mutation({
+      query: (id) => ({
+        url: `/jobs/saved-job/${id}`,
+        method: "DELETE",
+      }),
+      invalidatesTags: ["deleteSavedJob"],
+    }),
   }),
 });
 
@@ -71,4 +78,5 @@ export const {
   useGetMyJobQuery,
   useSaveJobsMutation,
   useGetSavedJobQuery,
+  useDeleteSavedJobMutation,
 } = jobApi;

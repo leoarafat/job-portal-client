@@ -7,12 +7,15 @@ import {
   EnvironmentOutlined,
   DollarCircleOutlined,
   CalendarOutlined,
-  HeartOutlined,
-  ShareAltOutlined,
 } from "@ant-design/icons";
-import { useGetSavedJobQuery } from "@/redux/features/job/jobSlice";
+import {
+  useDeleteSavedJobMutation,
+  useGetSavedJobQuery,
+} from "@/redux/features/job/jobSlice";
 import Link from "next/link";
 import Loader from "@/components/loader/loader";
+import { isErrorResponse, isSuccessResponse } from "@/shared/loginResponse";
+import { message } from "antd";
 const RootLayout = dynamic(
   () => import("../../components/layouts/RootLayout"),
   {
@@ -22,10 +25,31 @@ const RootLayout = dynamic(
 const SavedJob = () => {
   const user = useAppSelector((state: RootState) => state.auth.user);
   const candidateId = user?.id;
-  const { data: savedJob, isLoading } = useGetSavedJobQuery({ candidateId });
+  const {
+    data: savedJob,
+    isLoading,
+    refetch,
+  } = useGetSavedJobQuery({ candidateId });
+
+  const [deleteJob] = useDeleteSavedJobMutation();
   if (isLoading) {
     return <Loader />;
   }
+  const handleDelete = async (id: string) => {
+    try {
+      const response = await deleteJob(id);
+
+      if (isSuccessResponse(response)) {
+        message.success("Saved job deleted successful");
+        refetch();
+      } else if (isErrorResponse(response)) {
+        message.error(response.error.data.message);
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   if (!savedJob?.data) {
     return null;
   }
@@ -37,7 +61,7 @@ const SavedJob = () => {
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
         {savedJob?.data?.map((job: any) => {
           return (
-            <div key={job?.id} className="bg-white rounded-lg shadow-lg p-4">
+            <div key={job?.id} className="bg-gray-100 rounded-lg shadow-lg p-4">
               <h2 className="text-xl font-semibold">{job?.job?.title}</h2>
 
               <p className="text-gray-600">{job?.job?.companyName}</p>
@@ -62,9 +86,20 @@ const SavedJob = () => {
                   {job?.job?.deadline}
                 </p>
               </div>
-              <button className="bg-blue-500 text-white px-4 py-2 my-2 rounded-full">
-                View Details
-              </button>
+              <div className="my-3 flex justify-around">
+                <Link href={`/jobs/${job?.job?.id}`}>
+                  {" "}
+                  <button className="bg-blue-500 text-white px-2 py-2  rounded-md">
+                    View Details
+                  </button>
+                </Link>
+                <button
+                  onClick={() => handleDelete(job?.id)}
+                  className="bg-blue-500 text-white px-2 py-2  rounded-md"
+                >
+                  Delete to list
+                </button>
+              </div>
             </div>
           );
         })}
