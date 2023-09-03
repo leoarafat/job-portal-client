@@ -29,41 +29,45 @@ const JobCard = ({ job }: any) => {
 
   const handleSaved = async () => {
     try {
-      if (isSaved) {
-        const response = await savedJob({
-          data: { candidateId, jobId },
-        });
-        if (isSuccessResponse(response)) {
-          message.success("Job removed");
-          setIsSaved(false);
+      if (user?.email) {
+        if (isSaved) {
+          const response = await savedJob({
+            data: { candidateId, jobId },
+          });
+          if (isSuccessResponse(response)) {
+            message.success("Job removed");
+            setIsSaved(false);
 
-          const savedJobs = JSON.parse(
-            localStorage.getItem("savedJobs") || "[]"
-          );
-          const index = savedJobs.indexOf(jobId);
-          if (index !== -1) {
-            savedJobs.splice(index, 1);
+            const savedJobs = JSON.parse(
+              localStorage.getItem("savedJobs") || "[]"
+            );
+            const index = savedJobs.indexOf(jobId);
+            if (index !== -1) {
+              savedJobs.splice(index, 1);
+            }
+            localStorage.setItem("savedJobs", JSON.stringify(savedJobs));
+          } else if (isErrorResponse(response)) {
+            message.error(response.error.data.message);
           }
-          localStorage.setItem("savedJobs", JSON.stringify(savedJobs));
-        } else if (isErrorResponse(response)) {
-          message.error(response.error.data.message);
+        } else {
+          const response = await savedJob({
+            data: { candidateId, jobId },
+          });
+          if (isSuccessResponse(response)) {
+            message.success("Job saved");
+            setIsSaved(true);
+
+            const savedJobs = JSON.parse(
+              localStorage.getItem("savedJobs") || "[]"
+            );
+            savedJobs.push(jobId);
+            localStorage.setItem("savedJobs", JSON.stringify(savedJobs));
+          } else if (isErrorResponse(response)) {
+            message.error(response.error.data.message);
+          }
         }
       } else {
-        const response = await savedJob({
-          data: { candidateId, jobId },
-        });
-        if (isSuccessResponse(response)) {
-          message.success("Job saved");
-          setIsSaved(true);
-
-          const savedJobs = JSON.parse(
-            localStorage.getItem("savedJobs") || "[]"
-          );
-          savedJobs.push(jobId);
-          localStorage.setItem("savedJobs", JSON.stringify(savedJobs));
-        } else if (isErrorResponse(response)) {
-          message.error(response.error.data.message);
-        }
+        message.warning("You need to have logged in to save job");
       }
     } catch (error) {
       console.log(error);

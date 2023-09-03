@@ -9,7 +9,10 @@ const MyJobList: React.FC = () => {
   const user = useAppSelector((state: RootState) => state.auth.user);
   const candidateId = user?.id;
 
-  const { data: myJob, isLoading } = useGetMyJobQuery({ candidateId });
+  const { data: myJob, isLoading } = useGetMyJobQuery(
+    { candidateId },
+    { refetchOnMountOrArgChange: true, pollingInterval: 30000 }
+  );
 
   if (isLoading) {
     return <Loader />;

@@ -36,7 +36,7 @@ const UpdateCandidate = () => {
   const [imageUrl, setImageUrl] = useState(null);
 
   const router = useRouter();
-  const user = useAppSelector((state: RootState) => state?.auth?.user) as User;
+  const user = useAppSelector((state: RootState) => state?.auth?.user);
 
   const id = user?.id;
   const [UpdateCandidate, { isLoading, isError, error }] =
@@ -65,10 +65,9 @@ const UpdateCandidate = () => {
   };
 
   const handleImageChange = (info: any) => {
-    if (info.file.status === "done") {
-      setImageUrl(info.file.response.url);
-    }
+    console.log(info.file);
   };
+
   if (isLoading) {
     return <Loader />;
   }
@@ -93,10 +92,9 @@ const UpdateCandidate = () => {
           validateMessages={validateMessages}
           style={{ maxWidth: 600 }}
         >
-          <Form.Item name={["image"]} label="Image">
+          <Form.Item name={["photoUrl"]} label="Image">
             <Upload
               name="image"
-              action="/your-upload-endpoint"
               listType="picture-card"
               showUploadList={true}
               onChange={handleImageChange}

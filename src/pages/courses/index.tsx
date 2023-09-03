@@ -1,0 +1,125 @@
+import React, { useState } from "react";
+import { FaSearch } from "react-icons/fa";
+import { IoFilterOutline } from "react-icons/io5";
+import { MdOutlineFilterListOff } from "react-icons/md";
+import dynamic from "next/dynamic";
+import { Radio } from "antd";
+import type { PaginationProps } from "antd";
+import { Pagination } from "antd";
+import Loader from "@/components/loader/loader";
+import { CourseCategory } from "@/shared/Courseutils";
+import { useGetAllCourseQuery } from "@/redux/features/courses/courseSlice";
+import CourseCard from "@/components/courses/CourseCard";
+
+const RootLayout = dynamic(
+  () => import("../../components/layouts/RootLayout"),
+  {
+    ssr: false,
+  }
+);
+
+const AllCourses = () => {
+  const [current, setCurrent] = useState(1);
+  const [isFilterOpen, setIsFilterOpen] = useState(false);
+  const [searchValue, setSearchValue] = useState("");
+  const [selectedJobCategory, setSelectedJobCategory] = useState("");
+
+  const { data: allCourse, isLoading } = useGetAllCourseQuery({});
+
+  const toggleFilter = () => {
+    setIsFilterOpen(!isFilterOpen);
+  };
+  const handleSearch = (value: string) => {
+    setSearchValue(value);
+  };
+
+  const handleJobCategoryChange = (value: string) => {
+    setSelectedJobCategory(value);
+  };
+  const onChange: PaginationProps["onChange"] = (page) => {
+    console.log(page);
+    setCurrent(page);
+  };
+  if (isLoading) {
+    return <Loader />;
+  }
+  return (
+    <div className="container mx-auto p-4">
+      {/* Header */}
+      <header className="mb-8 flex justify-between items-center">
+        <h1 className="text-3xl font-semibold text-gray-600 hidden md:block">
+          Our Courses
+        </h1>
+        <div className="flex items-center">
+          <button
+            onClick={toggleFilter}
+            className="lg:hidden bg-blue-500 text-white px-4 py-2 rounded-full mr-2"
+          >
+            {isFilterOpen ? <MdOutlineFilterListOff /> : <IoFilterOutline />}
+          </button>
+          <div className="relative">
+            <input
+              type="text"
+              onChange={(e) => handleSearch(e.target.value)}
+              placeholder="Search..."
+              className="border rounded-full border-gray-300 py-2 px-4 pr-10 focus:outline-none focus:ring focus:border-blue-300 placeholder-gray-400 bg-white shadow-sm w-64"
+            />
+            <div className="absolute inset-y-0 right-0 pr-3 flex items-center pointer-events-none">
+              <FaSearch className="text-gray-400" />
+            </div>
+          </div>
+        </div>
+      </header>
+
+      <main className="lg:flex">
+        <aside
+          className={`lg:w-1/4 ${
+            isFilterOpen ? "block" : "hidden"
+          } lg:block mr-4`}
+        >
+          <div className="bg-white p-4 rounded-lg shadow">
+            <h2 className="text-lg font-semibold mb-4">Filter Courses</h2>
+
+            <div className="mb-4 flex flex-wrap">
+              <label className="block text-sm font-medium text-gray-700 mb-2 w-full">
+                Courses Category
+              </label>
+
+              <Radio.Group defaultValue="All" className="w-full">
+                {CourseCategory.map((category, index) => (
+                  <div key={index} className="w-1/2">
+                    <Radio
+                      onChange={(e) => handleJobCategoryChange(e.target.value)}
+                      value={category}
+                    >
+                      {category}
+                    </Radio>
+                  </div>
+                ))}
+              </Radio.Group>
+            </div>
+          </div>
+        </aside>
+
+        {/* Job Listings */}
+        <div className="lg:w-3/4">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+            {allCourse?.data?.map(
+              (course: { id: React.Key | null | undefined }) => (
+                <CourseCard key={course.id} course={course} />
+              )
+            )}
+          </div>
+        </div>
+      </main>
+      <div className="text-center py-6">
+        <Pagination current={current} onChange={onChange} total={100} />
+      </div>
+    </div>
+  );
+};
+
+export default AllCourses;
+AllCourses.getLayout = function getLayout(page: any) {
+  return <RootLayout>{page}</RootLayout>;
+};

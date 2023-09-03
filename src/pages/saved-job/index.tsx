@@ -1,5 +1,5 @@
 import dynamic from "next/dynamic";
-import React from "react";
+import React, { useState } from "react";
 import DashboardLayout from "../dashboard";
 import { useAppSelector } from "@/redux/hooks";
 import { RootState } from "@/redux/store";
@@ -15,7 +15,7 @@ import {
 import Link from "next/link";
 import Loader from "@/components/loader/loader";
 import { isErrorResponse, isSuccessResponse } from "@/shared/loginResponse";
-import { message } from "antd";
+import { Spin, message } from "antd";
 const RootLayout = dynamic(
   () => import("../../components/layouts/RootLayout"),
   {
@@ -23,19 +23,22 @@ const RootLayout = dynamic(
   }
 );
 const SavedJob = () => {
+  const [isLoadingDelete, setIsLoadingDelete] = useState(false);
   const user = useAppSelector((state: RootState) => state.auth.user);
   const candidateId = user?.id;
   const {
     data: savedJob,
     isLoading,
     refetch,
-  } = useGetSavedJobQuery({ candidateId });
+  } = useGetSavedJobQuery(
+    { candidateId },
+    { refetchOnMountOrArgChange: true, pollingInterval: 30000 }
+  );
 
   const [deleteJob] = useDeleteSavedJobMutation();
-  if (isLoading) {
-    return <Loader />;
-  }
+
   const handleDelete = async (id: string) => {
+    setIsLoadingDelete(true);
     try {
       const response = await deleteJob(id);
 
@@ -48,6 +51,7 @@ const SavedJob = () => {
     } catch (error) {
       console.log(error);
     }
+    setIsLoadingDelete(false);
   };
 
   if (!savedJob?.data) {
@@ -95,9 +99,16 @@ const SavedJob = () => {
                 </Link>
                 <button
                   onClick={() => handleDelete(job?.id)}
-                  className="bg-blue-500 text-white px-2 py-2  rounded-md"
+                  className="bg-purple-500 text-white px-2 py-2  rounded-md"
                 >
-                  Delete to list
+                  {isLoadingDelete ? (
+                    <>
+                      Deleting..
+                      <Spin />{" "}
+                    </>
+                  ) : (
+                    "Delete from List"
+                  )}
                 </button>
               </div>
             </div>
