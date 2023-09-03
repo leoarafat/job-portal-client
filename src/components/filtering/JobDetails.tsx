@@ -17,6 +17,7 @@ const { TextArea } = Input;
 const JobDetails = () => {
   const [isModalVisible, setIsModalVisible] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
+
   const [coverLetter, setCoverLetter] = useState("");
   const [whyHire, setWhyHire] = useState("");
   const router = useRouter();
