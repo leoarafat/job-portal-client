@@ -20,18 +20,19 @@ const RecentJobCircular: React.FC<JobProps> = ({ photoUrl }) => {
   }
 
   return (
-    <div className="bg-gray-100 px-2  shadow-md ">
-      <div className="flex items-center justify-between mb-3">
-        <h2 className="text-[30px] font-semibold">Recent Job Circular</h2>
-        <Link href={"/jobs"}>
-          {" "}
-          <button className="px-6 py-3 border border-blue-500 text-blue-500 hover:bg-blue-500 hover:text-white rounded-md transition duration-300">
+    <div className="bg-white rounded-lg shadow-md p-6">
+      <div className="flex items-center justify-between mb-4">
+        <h2 className="text-3xl font-semibold text-gray-800">
+          Recent Job Circulars
+        </h2>
+        <Link href="/jobs">
+          <button className="px-6 py-3 bg-blue-500 text-white rounded-md hover:bg-blue-600 transition duration-300 ease-in-out">
             Explore All
           </button>
         </Link>
       </div>
 
-      <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-4 text-center ">
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
         {jobs?.data?.map((job: { id: React.Key | null | undefined }) => (
           <JobCard key={job.id} job={job} />
         ))}

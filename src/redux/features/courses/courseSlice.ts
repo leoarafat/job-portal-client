@@ -9,7 +9,18 @@ const courseApi = api.injectEndpoints({
     getSingleCourse: builder.query({
       query: (id) => `/courses/${id}`,
     }),
+    postOrder: builder.mutation({
+      query: (courseData) => ({
+        url: `/courses/order`,
+        method: "POST",
+        body: courseData,
+      }),
+    }),
   }),
 });
 
-export const { useGetAllCourseQuery, useGetSingleCourseQuery } = courseApi;
+export const {
+  useGetAllCourseQuery,
+  useGetSingleCourseQuery,
+  usePostOrderMutation,
+} = courseApi;

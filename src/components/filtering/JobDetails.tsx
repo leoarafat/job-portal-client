@@ -105,9 +105,9 @@ const JobDetails = () => {
 
   return (
     <div className="container mx-auto p-4">
-      <div className="bg-gray-100 rounded-lg shadow-lg p-4">
+      <div className="bg-white rounded-lg shadow-lg p-6">
         <div className="mb-6">
-          <h1 className="text-3xl font-semibold">{title}</h1>
+          <h1 className="text-3xl font-semibold text-gray-800">{title}</h1>
           <p className="text-gray-600">{companyName}</p>
         </div>
 
@@ -124,24 +124,15 @@ const JobDetails = () => {
               </h2>
               <p className="text-gray-800">{jobResponsibilities}</p>
             </div>
-            <div className="mb-4">
-              <h2 className="text-xl font-semibold mb-2">Benefits</h2>
-              <p className="text-gray-800">{benefits}</p>
-            </div>
 
             <div className="mb-4">
-              <h2 className="text-xl font-semibold mb-2">Qualification</h2>
+              <h2 className="text-xl font-semibold mb-2">Qualifications</h2>
               <p className="text-gray-800">{qualification}</p>
             </div>
 
             <div className="mb-4">
               <h2 className="text-xl font-semibold mb-2">Required Skills</h2>
               <p className="text-gray-800">{requiredSkill}</p>
-            </div>
-
-            <div className="mb-4">
-              <h2 className="text-xl font-semibold mb-2">Education</h2>
-              <p className="text-gray-800">{education}</p>
             </div>
           </div>
 
@@ -189,7 +180,9 @@ const JobDetails = () => {
               Apply Now
             </Button>
           ) : (
-            <p className="text-red-400">Only Candidate can apply this job</p>
+            <p className="text-red-400">
+              Only Candidates can apply for this job
+            </p>
           )}
         </div>
       </div>
@@ -205,7 +198,7 @@ const JobDetails = () => {
           value={coverLetter}
           onChange={(e) => setCoverLetter(e.target.value)}
           rows={4}
-          className="mb-1"
+          className="mb-2"
         />
         <TextArea
           placeholder="Why should we hire you?"

@@ -75,28 +75,28 @@ const JobCard = ({ job }: any) => {
   };
 
   return (
-    <div className="bg-white rounded-lg shadow-lg p-4">
-      <h2 className="text-xl font-semibold">{job?.title}</h2>
+    <div className="bg-white rounded-lg shadow-lg p-6">
+      <h2 className="text-2xl font-semibold text-gray-800">{job?.title}</h2>
 
-      <p className="text-gray-600">{job?.companyName}</p>
+      <p className="text-gray-500 mt-2">{job?.companyName}</p>
 
       <div className="mt-4">
-        <p className="text-gray-800">
+        <p className="text-gray-700">
           <span className="font-semibold">
             <EnvironmentOutlined /> Location:
           </span>{" "}
           {job?.location}
         </p>
-        <p className="text-gray-800">
+        <p className="text-gray-700">
           <span className="font-semibold">
             <DollarCircleOutlined /> Salary:
           </span>{" "}
-          {job?.Salary}
+          {job?.salary}
         </p>
-        <p className="text-gray-800">
-          <a className="font-semibold">
+        <p className="text-gray-700">
+          <span className="font-semibold">
             <CalendarOutlined /> Deadline:
-          </a>{" "}
+          </span>{" "}
           {job?.deadline}
         </p>
       </div>
@@ -104,16 +104,15 @@ const JobCard = ({ job }: any) => {
       {/* Action Buttons */}
       <div className="mt-6 flex items-center space-x-4">
         <Link href={`jobs/${job?.id}`}>
-          {" "}
-          <button className="bg-blue-500 text-white px-4 py-2 rounded-full">
+          <button className="bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded-full focus:outline-none transition duration-300 ease-in-out">
             View Details
           </button>
         </Link>
         <button
           onClick={handleSaved}
           className={`${
-            isSaved ? "text-red-500" : "text-gray-500"
-          } hover:text-red-700 flex items-center space-x-1`}
+            isSaved ? "text-red-500" : "text-gray-700"
+          } hover:text-red-700 flex items-center space-x-1 focus:outline-none`}
         >
           {isLoading ? (
             <Spin size="small" />
@@ -129,7 +128,7 @@ const JobCard = ({ job }: any) => {
             </>
           )}
         </button>
-        <button className="text-blue-500 hover:text-blue-700">
+        <button className="text-gray-700 hover:text-blue-500 focus:outline-none">
           <ShareAltOutlined /> Share
         </button>
       </div>

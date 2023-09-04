@@ -7,7 +7,8 @@ import JobCard from "@/components/filtering/JobCard";
 import { Radio } from "antd";
 import { Select } from "antd";
 const { Option } = Select;
-
+import type { PaginationProps } from "antd";
+import { Pagination } from "antd";
 import { jobCategories, jobTypes, locations } from "@/shared/jobPostUtils";
 import { useGetAllJobsQuery } from "@/redux/features/job/jobSlice";
 import Loader from "@/components/loader/loader";
@@ -20,6 +21,7 @@ const RootLayout = dynamic(
 );
 
 const AllJobs = () => {
+  const [current, setCurrent] = useState(1);
   const [isFilterOpen, setIsFilterOpen] = useState(false);
   const [searchValue, setSearchValue] = useState("");
   const [selectedJobType, setSelectedJobType] = useState("");
@@ -45,6 +47,10 @@ const AllJobs = () => {
 
   const handleLocationTypeChange = (value: string) => {
     setSelectedLocationType(value);
+  };
+  const onChange: PaginationProps["onChange"] = (page) => {
+    console.log(page);
+    setCurrent(page);
   };
   if (isLoading) {
     return <Loader />;
@@ -156,6 +162,9 @@ const AllJobs = () => {
           </div>
         </div>
       </main>
+      <div className="text-center py-6">
+        <Pagination current={current} onChange={onChange} total={100} />
+      </div>
     </div>
   );
 };
