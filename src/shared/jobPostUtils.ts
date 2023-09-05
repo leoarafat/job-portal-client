@@ -27,4 +27,4 @@ export const locations = [
   "Sylhet",
 ];
 
-export const jobTypes = ["FullTime", "Internship", "PartTime"];
+export const jobTypes = ["FullTime", "Remote", "PartTime"];

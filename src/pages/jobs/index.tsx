@@ -28,7 +28,14 @@ const AllJobs = () => {
   const [selectedJobCategory, setSelectedJobCategory] = useState("");
   const [selectedLocationType, setSelectedLocationType] = useState("");
 
-  const { data: allJobs, isLoading } = useGetAllJobsQuery({});
+  const { data: allJobs, isLoading } = useGetAllJobsQuery({
+    searchTerm: searchValue || "",
+    jobCategory: selectedJobCategory || "",
+    type: selectedJobType,
+    location: selectedLocationType,
+    page: current,
+    limit: 10,
+  });
 
   const toggleFilter = () => {
     setIsFilterOpen(!isFilterOpen);
@@ -99,35 +106,35 @@ const AllJobs = () => {
                 Job Type
               </label>
 
-              <Radio.Group defaultValue="All" buttonStyle="solid">
+              <Radio.Group
+                onChange={(e) => handleJobTypeChange(e.target.value)}
+                defaultValue="All"
+                buttonStyle="solid"
+              >
                 {jobTypes.map((type) => (
-                  <Radio.Button
-                    onChange={(e) => handleJobTypeChange(e.target.value)}
-                    key={type}
-                    value={type}
-                  >
+                  <Radio.Button key={type} value={type}>
                     {type}
                   </Radio.Button>
                 ))}
-                <Radio.Button key="All" value="All">
+                <Radio.Button key="All" value="">
                   All
                 </Radio.Button>
               </Radio.Group>
             </div>
             <div className="mb-4 flex flex-wrap">
               <label className="block text-sm font-medium text-gray-700 mb-2 w-full">
-                JobCategory
+                Job Category
               </label>
 
-              <Radio.Group defaultValue="All" className="w-full">
+              <Radio.Group
+                onChange={(e) => handleJobCategoryChange(e.target.value)}
+                defaultValue="All"
+                className="w-full"
+              >
+                <Radio value="">All</Radio>
                 {jobCategories.map((category, index) => (
                   <div key={index} className="w-1/2">
-                    <Radio
-                      onChange={(e) => handleJobCategoryChange(e.target.value)}
-                      value={category}
-                    >
-                      {category}
-                    </Radio>
+                    <Radio value={category}>{category}</Radio>
                   </div>
                 ))}
               </Radio.Group>
@@ -163,7 +170,11 @@ const AllJobs = () => {
         </div>
       </main>
       <div className="text-center py-6">
-        <Pagination current={current} onChange={onChange} total={100} />
+        <Pagination
+          current={current}
+          onChange={onChange}
+          total={allJobs?.meta?.total}
+        />
       </div>
     </div>
   );

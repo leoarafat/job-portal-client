@@ -19,8 +19,37 @@ const jobApi = api.injectEndpoints({
       invalidatesTags: ["updateJob"],
     }),
 
+    // getAllJobs: builder.query({
+    //   query: (options) => {
+    //     const { searchTerm, jobCategory, page, limit } = options;
+    //     return `/jobs?searchTerm=${searchTerm}&jobCategory=${jobCategory}&page=${page}&limit=${limit}`;
+    //   },
+    // }),
     getAllJobs: builder.query({
-      query: () => `/jobs`,
+      query: (options) => {
+        const { searchTerm, jobCategory, page, limit, type, location } =
+          options;
+        let query = "/jobs?";
+
+        if (searchTerm) {
+          query += `searchTerm=${searchTerm}&`;
+        }
+
+        if (jobCategory) {
+          query += `jobCategory=${jobCategory}&`;
+        }
+        if (type) {
+          query += `type=${type}&`;
+        }
+        if (location) {
+          query += `location=${location}&`;
+        }
+
+        // Add other query parameters here as needed
+
+        query += `page=${page}&limit=${limit}`;
+        return query;
+      },
     }),
 
     getJobById: builder.query({
