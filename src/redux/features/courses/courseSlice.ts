@@ -33,8 +33,8 @@ const courseApi = api.injectEndpoints({
         body: courseData,
       }),
     }),
-    getOrderByTransactionId: builder.query({
-      query: (id) => `/courses/transaction/${id}`,
+    getOrderById: builder.query({
+      query: (id) => `/courses/${id}`,
     }),
   }),
 });
@@ -43,6 +43,6 @@ export const {
   useGetAllCourseQuery,
   useGetSingleCourseQuery,
   usePostOrderMutation,
-  useGetOrderByTransactionIdQuery,
   useGetCourseTitleQuery,
+  useGetOrderByIdQuery,
 } = courseApi;

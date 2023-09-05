@@ -1,6 +1,7 @@
 import { FaSearch } from "react-icons/fa";
 import Image from "next/image";
 import IMG from "../../assests/job-hero/job.png";
+import Link from "next/link";
 
 const HeroSection: React.FC = () => {
   return (
@@ -32,21 +33,15 @@ const HeroSection: React.FC = () => {
                   </div>
                 </div>
                 <button className="w-1/3 bg-indigo-500 text-white py-2 px-4 rounded-lg shadow-xl">
-                  Search
+                  <Link href={"/jobs"}>Search</Link>
                 </button>
               </div>
             </div>
           </div>
 
-          {/* Second Column */}
           <div className="mt-10 md:mt-0 md:w-1/2">
             <div className="hidden md:block w-full h-full rounded-lg overflow-hidden">
-              <Image
-                src={IMG} // Replace with your image URL
-                alt="Hero Image"
-                width={500}
-                height={350}
-              />
+              <Image src={IMG} alt="Hero Image" width={500} height={350} />
             </div>
           </div>
         </div>

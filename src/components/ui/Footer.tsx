@@ -188,7 +188,7 @@ const Footer = () => {
                         href="tel:+243996660436"
                         className="transition hover:text-primary"
                       >
-                        +243 996 660 436
+                        +880 1303-896556
                       </a>
                     </li>
                     <li>
@@ -196,7 +196,7 @@ const Footer = () => {
                         href="mailto:meschacirung@gmail.com"
                         className="transition hover:text-primary"
                       >
-                        contact@tailus.com
+                        procareer@gmail.com
                       </a>
                     </li>
                     <li>

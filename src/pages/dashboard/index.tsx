@@ -1,4 +1,5 @@
 import React, { ReactNode, useState } from "react";
+
 import Link from "next/link";
 import {
   BarChartOutlined,
@@ -18,6 +19,7 @@ import { useAppSelector } from "@/redux/hooks";
 import { User } from "@/shared/user";
 import { useRouter } from "next/router";
 import dynamic from "next/dynamic";
+import DefaultDashboardContent from "@/components/ui/DefaultDashboard";
 const RootLayout = dynamic(
   () => import("../../components/layouts/RootLayout"),
   {
@@ -31,8 +33,12 @@ interface RootLayoutProps {
 }
 
 const DashboardLayout = ({ children }: RootLayoutProps) => {
+  const router = useRouter();
   const user = useAppSelector((state) => state.auth.user) as User;
   const id = user?.id;
+  if (!user?.email) {
+    router.push("/login-candidate");
+  }
   const [collapsed, setCollapsed] = useState(false);
   const {
     token: { colorBgContainer },
@@ -116,7 +122,7 @@ const DashboardLayout = ({ children }: RootLayoutProps) => {
               background: colorBgContainer,
             }}
           >
-            {children}
+            {children || <DefaultDashboardContent />}
           </div>
         </Content>
       </Layout>

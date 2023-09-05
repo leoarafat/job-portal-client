@@ -1,13 +1,13 @@
 import React, { ReactNode, useState, useEffect } from "react";
 
 import Link from "next/link";
-import { Drawer, Modal, Row, message } from "antd";
+import { Drawer, message } from "antd";
 import { RootState } from "../../redux/store";
 import {
-  MenuFoldOutlined,
   CloseOutlined,
   LoginOutlined,
   LogoutOutlined,
+  MenuOutlined,
 } from "@ant-design/icons";
 import Cookies from "js-cookie";
 import Image from "next/image";
@@ -93,21 +93,21 @@ const RootLayout: React.FC<RootLayoutProps> = ({ children }) => {
           </Link>
           <div>
             <ul style={{ color: `${linkColor}` }} className="hidden md:flex">
+              <li className="ml-10 text-lg  hover:border-b">
+                <Link href="/jobs">Brows Jobs</Link>
+              </li>
+              <li className="ml-8 text-lg hover:border-b">
+                <Link href="/courses">Course</Link>
+              </li>
+              <li className="ml-8 text-lg hover:border-b">
+                <Link href="/corporate">Corporate</Link>
+              </li>
+
               {user?.email && (
                 <li className="ml-10 text-lg  hover:border-b">
                   <Link href="/dashboard">Dashboard</Link>
                 </li>
               )}
-
-              <li className="ml-10 text-lg  hover:border-b">
-                <Link href="/jobs">Brows Jobs</Link>
-              </li>
-              <li className="ml-8 text-lg hover:border-b">
-                <Link href="/corporate">Corporate</Link>
-              </li>
-              <li className="ml-8 text-lg hover:border-b">
-                <Link href="/courses">Course</Link>
-              </li>
               {user?.email ? (
                 <li className="ml-8 text-lg flex items-center hover:border-b">
                   <LogoutOutlined className="mr-1" />
@@ -135,7 +135,7 @@ const RootLayout: React.FC<RootLayoutProps> = ({ children }) => {
               onClick={handleNav}
               className="md:hidden"
             >
-              <MenuFoldOutlined style={{ fontSize: "24px" }} />
+              <MenuOutlined style={{ fontSize: "24px" }} />
             </div>
           </div>
         </div>
@@ -178,6 +178,22 @@ const RootLayout: React.FC<RootLayoutProps> = ({ children }) => {
             </div>
             <div className="py-4 flex flex-col">
               <ul className="">
+                <Link href="/jobs">
+                  <li onClick={() => setNav(false)} className="py-4">
+                    Brows Jobs
+                  </li>
+                </Link>
+                <Link href="/courses">
+                  <li onClick={() => setNav(false)} className="py-4">
+                    Course
+                  </li>
+                </Link>
+                <Link href="/corporate">
+                  <li onClick={() => setNav(false)} className="py-4">
+                    Corporate
+                  </li>
+                </Link>
+
                 {user?.email && (
                   <Link href="/dashboard">
                     <li onClick={() => setNav(false)} className="py-4">
@@ -186,21 +202,6 @@ const RootLayout: React.FC<RootLayoutProps> = ({ children }) => {
                   </Link>
                 )}
 
-                <Link href="/jobs">
-                  <li onClick={() => setNav(false)} className="py-4">
-                    Brows Jobs
-                  </li>
-                </Link>
-                <Link href="/corporate">
-                  <li onClick={() => setNav(false)} className="py-4">
-                    Corporate
-                  </li>
-                </Link>
-                <Link href="/courses">
-                  <li onClick={() => setNav(false)} className="py-4">
-                    Course
-                  </li>
-                </Link>
                 <Link href="/membership">
                   <li onClick={() => setNav(false)} className="py-4">
                     Membership

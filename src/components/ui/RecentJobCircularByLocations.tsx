@@ -20,7 +20,7 @@ const RecentJobCircularByLocations = () => {
               key={logo.title}
               className="group flex flex-col items-center p-2 transition-transform transform hover:scale-95 rounded-lg overflow-hidden"
             >
-              <Link href={"/"}>
+              <Link href={"/jobs"}>
                 {" "}
                 <div className=" mb-2">
                   <Image

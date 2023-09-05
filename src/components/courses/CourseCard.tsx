@@ -7,8 +7,10 @@ import { usePostOrderMutation } from "@/redux/features/courses/courseSlice";
 import { useAppSelector } from "@/redux/hooks";
 import { RootState } from "@/redux/store";
 import { isErrorResponse, isSuccessResponse } from "@/shared/loginResponse";
+import { useRouter } from "next/router";
 
 const CourseCard = ({ course }: any) => {
+  const router = useRouter();
   const [postOrder, { isLoading }] = usePostOrderMutation();
   const user = useAppSelector((state: RootState) => state.auth.user);
 
@@ -23,10 +25,15 @@ const CourseCard = ({ course }: any) => {
   const handleOrder = async () => {
     try {
       const response = await postOrder(orderItem);
-      if (isSuccessResponse(response)) {
-        window.location.replace(response.data.data.url);
-      } else if (isErrorResponse(response)) {
-        message.error(response.error.data.message);
+      if (user?.email && user?.role === "Candidate") {
+        if (isSuccessResponse(response)) {
+          window.location.replace(response.data.data.url);
+        } else if (isErrorResponse(response)) {
+          message.error(response.error.data.message);
+        }
+      } else {
+        message.warning("Only Candidate can enroll");
+        router.push("/login-candidate");
       }
     } catch (error) {
       console.log(error);

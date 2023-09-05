@@ -90,7 +90,7 @@ const Checkout = () => {
             <textarea
               id="courseDetails"
               name="courseDetails"
-              rows="4"
+              rows={4}
               className="form-textarea"
               placeholder="Course details..."
             />
