@@ -1,7 +1,10 @@
 /* eslint-disable @next/next/no-img-element */
 import React from "react";
 import { ShareAltOutlined, SaveOutlined } from "@ant-design/icons";
-import { useGetAllJobsQuery } from "@/redux/features/job/jobSlice";
+import {
+  useGetAllJobPostQuery,
+  useGetAllJobsQuery,
+} from "@/redux/features/job/jobSlice";
 import Loader from "../loader/loader";
 import Link from "next/link";
 import JobCard from "../filtering/JobCard";
@@ -13,7 +16,7 @@ type JobProps = {
   viewDetailsLink: string;
 };
 const RecentJobCircular: React.FC<JobProps> = ({ photoUrl }) => {
-  const { data: jobs, isLoading } = useGetAllJobsQuery({});
+  const { data: jobs, isLoading } = useGetAllJobPostQuery({});
 
   if (isLoading) {
     return <Loader />;
