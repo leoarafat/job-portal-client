@@ -3,9 +3,26 @@ import { api } from "../../api/apiSlice";
 const courseApi = api.injectEndpoints({
   endpoints: (builder) => ({
     getAllCourse: builder.query({
-      query: () => `/courses`,
+      query: (options) => {
+        const { searchTerm, title, page, limit } = options;
+        let query = "/courses?";
+
+        if (searchTerm) {
+          query += `searchTerm=${searchTerm}&`;
+        }
+
+        if (title) {
+          query += `title=${title}&`;
+        }
+
+        query += `page=${page}&limit=${limit}`;
+        return query;
+      },
     }),
 
+    getCourseTitle: builder.query({
+      query: () => `/courses`,
+    }),
     getSingleCourse: builder.query({
       query: (id) => `/courses/${id}`,
     }),
@@ -27,4 +44,5 @@ export const {
   useGetSingleCourseQuery,
   usePostOrderMutation,
   useGetOrderByTransactionIdQuery,
+  useGetCourseTitleQuery,
 } = courseApi;

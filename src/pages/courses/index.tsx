@@ -7,8 +7,11 @@ import { Radio } from "antd";
 import type { PaginationProps } from "antd";
 import { Pagination } from "antd";
 import Loader from "@/components/loader/loader";
-import { CourseCategory } from "@/shared/Courseutils";
-import { useGetAllCourseQuery } from "@/redux/features/courses/courseSlice";
+
+import {
+  useGetAllCourseQuery,
+  useGetCourseTitleQuery,
+} from "@/redux/features/courses/courseSlice";
 import CourseCard from "@/components/courses/CourseCard";
 
 const RootLayout = dynamic(
@@ -22,9 +25,16 @@ const AllCourses = () => {
   const [current, setCurrent] = useState(1);
   const [isFilterOpen, setIsFilterOpen] = useState(false);
   const [searchValue, setSearchValue] = useState("");
-  const [selectedJobCategory, setSelectedJobCategory] = useState("");
+  const [selectedTitle, setSelectedTitle] = useState("");
 
-  const { data: allCourse, isLoading } = useGetAllCourseQuery({});
+  const { data: courseTitle } = useGetCourseTitleQuery({});
+
+  const { data: allCourse, isLoading } = useGetAllCourseQuery({
+    searchTerm: searchValue || "",
+    title: selectedTitle || "",
+    page: current,
+    limit: 10,
+  });
 
   const toggleFilter = () => {
     setIsFilterOpen(!isFilterOpen);
@@ -33,11 +43,10 @@ const AllCourses = () => {
     setSearchValue(value);
   };
 
-  const handleJobCategoryChange = (value: string) => {
-    setSelectedJobCategory(value);
+  const handleTitleChange = (value: string) => {
+    setSelectedTitle(value);
   };
   const onChange: PaginationProps["onChange"] = (page) => {
-    console.log(page);
     setCurrent(page);
   };
   if (isLoading) {
@@ -85,17 +94,36 @@ const AllCourses = () => {
                 Courses Category
               </label>
 
-              <Radio.Group defaultValue="All" className="w-full">
-                {CourseCategory.map((category, index) => (
-                  <div key={index} className="w-1/2">
-                    <Radio
-                      onChange={(e) => handleJobCategoryChange(e.target.value)}
-                      value={category}
-                    >
-                      {category}
-                    </Radio>
-                  </div>
-                ))}
+              <Radio.Group
+                onChange={(e) => handleTitleChange(e.target.value)}
+                defaultValue="All"
+                className="w-full"
+              >
+                <Radio value="">All</Radio>
+                {courseTitle?.data?.map(
+                  (
+                    category: {
+                      title:
+                        | string
+                        | number
+                        | boolean
+                        | React.ReactElement<
+                            any,
+                            string | React.JSXElementConstructor<any>
+                          >
+                        | Iterable<React.ReactNode>
+                        | React.ReactPortal
+                        | React.PromiseLikeOfReactNode
+                        | null
+                        | undefined;
+                    },
+                    index: React.Key | null | undefined
+                  ): any => (
+                    <div key={index} className="w-1/2">
+                      <Radio value={category.title}>{category.title}</Radio>
+                    </div>
+                  )
+                )}
               </Radio.Group>
             </div>
           </div>
@@ -113,7 +141,11 @@ const AllCourses = () => {
         </div>
       </main>
       <div className="text-center py-6">
-        <Pagination current={current} onChange={onChange} total={100} />
+        <Pagination
+          current={current}
+          onChange={onChange}
+          total={allCourse?.meta?.total}
+        />
       </div>
     </div>
   );

@@ -18,13 +18,6 @@ const jobApi = api.injectEndpoints({
       }),
       invalidatesTags: ["updateJob"],
     }),
-
-    // getAllJobs: builder.query({
-    //   query: (options) => {
-    //     const { searchTerm, jobCategory, page, limit } = options;
-    //     return `/jobs?searchTerm=${searchTerm}&jobCategory=${jobCategory}&page=${page}&limit=${limit}`;
-    //   },
-    // }),
     getAllJobs: builder.query({
       query: (options) => {
         const { searchTerm, jobCategory, page, limit, type, location } =
@@ -44,8 +37,6 @@ const jobApi = api.injectEndpoints({
         if (location) {
           query += `location=${location}&`;
         }
-
-        // Add other query parameters here as needed
 
         query += `page=${page}&limit=${limit}`;
         return query;
