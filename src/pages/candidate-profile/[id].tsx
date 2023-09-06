@@ -25,6 +25,7 @@ import { useRouter } from "next/router";
 import Loader from "@/components/loader/loader";
 import { RootState } from "@/redux/store";
 import DashboardLayout from "../dashboard";
+import Head from "next/head";
 
 const RootLayout = dynamic(
   () => import("../../components/layouts/RootLayout"),
@@ -77,6 +78,9 @@ const UpdateCandidate = () => {
 
   return (
     <div>
+      <Head>
+        <title>Update - candidate</title>
+      </Head>
       <div className="p-10 flex flex-col items-center justify-center">
         <h1 className="text-[30px] text-gray-500 font-semibold mb-6">
           {candidate?.data?.isComplete ? (

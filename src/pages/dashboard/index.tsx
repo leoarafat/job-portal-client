@@ -20,6 +20,7 @@ import { User } from "@/shared/user";
 import { useRouter } from "next/router";
 import dynamic from "next/dynamic";
 import DefaultDashboardContent from "@/components/ui/DefaultDashboard";
+import Head from "next/head";
 const RootLayout = dynamic(
   () => import("../../components/layouts/RootLayout"),
   {
@@ -90,43 +91,48 @@ const DashboardLayout = ({ children }: RootLayoutProps) => {
   const combinedItems: MenuItem[] = [...filteredItems];
 
   return (
-    <Layout style={{ minHeight: "100vh" }}>
-      <Sider
-        collapsible
-        collapsed={collapsed}
-        onCollapse={(value) => setCollapsed(value)}
-        style={{ background: "white" }}
-      >
-        <div className="demo-logo-vertical" />
-        <Menu theme="light" mode="inline">
-          {combinedItems.map((item) => (
-            <Menu.Item key={item.key} icon={item.icon}>
-              <Link href={item.link || "#"}>
-                <span>{item.label}</span>
-              </Link>
-            </Menu.Item>
-          ))}
-        </Menu>
-      </Sider>
-      <Layout>
-        <Header style={{ padding: 0, background: colorBgContainer }} />
-        <Content style={{ margin: "0 16px" }}>
-          <Breadcrumb style={{ margin: "16px 0" }}>
-            <Breadcrumb.Item>User</Breadcrumb.Item>
-            <Breadcrumb.Item>Home</Breadcrumb.Item>
-          </Breadcrumb>
-          <div
-            style={{
-              padding: 24,
-              minHeight: "100vh",
-              background: colorBgContainer,
-            }}
-          >
-            {children || <DefaultDashboardContent />}
-          </div>
-        </Content>
+    <>
+      <Head>
+        <title>Dashboard</title>
+      </Head>{" "}
+      <Layout style={{ minHeight: "100vh" }}>
+        <Sider
+          collapsible
+          collapsed={collapsed}
+          onCollapse={(value) => setCollapsed(value)}
+          style={{ background: "white" }}
+        >
+          <div className="demo-logo-vertical" />
+          <Menu theme="light" mode="inline">
+            {combinedItems.map((item) => (
+              <Menu.Item key={item.key} icon={item.icon}>
+                <Link href={item.link || "#"}>
+                  <span>{item.label}</span>
+                </Link>
+              </Menu.Item>
+            ))}
+          </Menu>
+        </Sider>
+        <Layout>
+          <Header style={{ padding: 0, background: colorBgContainer }} />
+          <Content style={{ margin: "0 16px" }}>
+            <Breadcrumb style={{ margin: "16px 0" }}>
+              <Breadcrumb.Item>User</Breadcrumb.Item>
+              <Breadcrumb.Item>Home</Breadcrumb.Item>
+            </Breadcrumb>
+            <div
+              style={{
+                padding: 24,
+                minHeight: "100vh",
+                background: colorBgContainer,
+              }}
+            >
+              {children || <DefaultDashboardContent />}
+            </div>
+          </Content>
+        </Layout>
       </Layout>
-    </Layout>
+    </>
   );
 };
 

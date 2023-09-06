@@ -4,6 +4,7 @@ import React from "react";
 import dynamic from "next/dynamic";
 import Footer from "@/components/ui/Footer";
 import PrivateRoute from "@/utils/PrivateRoutes";
+import Head from "next/head";
 const RootLayout = dynamic(
   () => import("../../components/layouts/RootLayout"),
   {
@@ -13,6 +14,9 @@ const RootLayout = dynamic(
 const Corporate = () => {
   return (
     <div>
+      <Head>
+        <title>Corporate</title>
+      </Head>
       <RecruitmentService />
       <Recruit />
       <Footer />

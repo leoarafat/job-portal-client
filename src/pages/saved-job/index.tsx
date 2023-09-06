@@ -16,6 +16,7 @@ import Link from "next/link";
 import Loader from "@/components/loader/loader";
 import { isErrorResponse, isSuccessResponse } from "@/shared/loginResponse";
 import { Spin, message } from "antd";
+import Head from "next/head";
 const RootLayout = dynamic(
   () => import("../../components/layouts/RootLayout"),
   {
@@ -59,6 +60,9 @@ const SavedJob = () => {
   }
   return (
     <div className="text-center">
+      <Head>
+        <title>Saved Jobs</title>
+      </Head>
       <h1 className="text-[30px] text-center text-gray-600 font-serif py-6">
         My Saved Jobs List
       </h1>

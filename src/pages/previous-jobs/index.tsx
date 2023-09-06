@@ -10,6 +10,7 @@ import PreviousJobsItem from "@/components/jobs/PreviousJobsItem";
 import { useRouter } from "next/router";
 import Loader from "@/components/loader/loader";
 import DashboardLayout from "../dashboard";
+import Head from "next/head";
 
 const RootLayout = dynamic(
   () => import("../../components/layouts/RootLayout"),
@@ -39,6 +40,9 @@ const PreviousJobs = () => {
   }
   return (
     <div>
+      <Head>
+        <title>Previous Jobs</title>
+      </Head>
       <h2 className="text-center text-[30px] text-gray-500 font-semibold">
         Your jobs
       </h2>

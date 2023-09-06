@@ -12,6 +12,7 @@ import Link from "next/link";
 import dynamic from "next/dynamic";
 import Loader from "@/components/loader/loader";
 import DashboardLayout from "../dashboard";
+import Head from "next/head";
 const RootLayout = dynamic(
   () => import("../../components/layouts/RootLayout"),
   {
@@ -52,6 +53,9 @@ const PreviousJobDetails = () => {
   }
   return (
     <div>
+      <Head>
+        <title>Previous Jobs Details</title>
+      </Head>
       <article className="border border-gray-200 overflow-hidden bg-white shadow-sm rounded mb-5">
         <div className="flex flex-col md:flex-row">
           <div className="md:w-1/4 flex p-3">

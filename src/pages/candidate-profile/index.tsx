@@ -11,6 +11,7 @@ import { message } from "antd";
 import { useRouter } from "next/router";
 import Loader from "@/components/loader/loader";
 import DashboardLayout from "../dashboard";
+import Head from "next/head";
 const RootLayout = dynamic(
   () => import("../../components/layouts/RootLayout"),
   {
@@ -55,6 +56,9 @@ const CandidateProfile = () => {
   }
   return (
     <div>
+      <Head>
+        <title>Profile - candidate</title>
+      </Head>
       <h2 className="text-[30px] text-center text-gray-500 font-semibold">
         {isComplete ? <p>Your Profile</p> : <p>Please complete your profile</p>}
       </h2>

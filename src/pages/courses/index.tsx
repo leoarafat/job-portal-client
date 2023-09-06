@@ -13,6 +13,7 @@ import {
   useGetCourseTitleQuery,
 } from "@/redux/features/courses/courseSlice";
 import CourseCard from "@/components/courses/CourseCard";
+import Head from "next/head";
 
 const RootLayout = dynamic(
   () => import("../../components/layouts/RootLayout"),
@@ -54,7 +55,9 @@ const AllCourses = () => {
   }
   return (
     <div className="container mx-auto p-4">
-      {/* Header */}
+      <Head>
+        <title>Courses</title>
+      </Head>
       <header className="mb-8 flex justify-between items-center">
         <h1 className="text-3xl font-semibold text-gray-600 hidden md:block">
           Our Courses
@@ -62,7 +65,7 @@ const AllCourses = () => {
         <div className="flex items-center">
           <button
             onClick={toggleFilter}
-            className="lg:hidden bg-blue-500 text-white px-4 py-2 rounded-full mr-2"
+            className="lg:hidden  px-4 py-2 rounded-full mr-2"
           >
             {isFilterOpen ? (
               <MdOutlineFilterListOff className="w-10 h-10" />

@@ -2,6 +2,7 @@ import MyJobList from "@/components/jobs/MyJob";
 import React from "react";
 import dynamic from "next/dynamic";
 import DashboardLayout from "../dashboard";
+import Head from "next/head";
 
 const RootLayout = dynamic(
   () => import("../../components/layouts/RootLayout"),
@@ -12,6 +13,9 @@ const RootLayout = dynamic(
 const MyJob = () => {
   return (
     <div>
+      <Head>
+        <title>Applied Job List</title>
+      </Head>
       <MyJobList />
     </div>
   );

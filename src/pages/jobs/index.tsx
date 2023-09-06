@@ -12,6 +12,7 @@ import { Pagination } from "antd";
 import { jobCategories, jobTypes, locations } from "@/shared/jobPostUtils";
 import { useGetAllJobsQuery } from "@/redux/features/job/jobSlice";
 import Loader from "@/components/loader/loader";
+import Head from "next/head";
 
 const RootLayout = dynamic(
   () => import("../../components/layouts/RootLayout"),
@@ -64,7 +65,9 @@ const AllJobs = () => {
   }
   return (
     <div className="container mx-auto p-4">
-      {/* Header */}
+      <Head>
+        <title>Brows Jobs</title>
+      </Head>
       <header className="mb-8 flex justify-between items-center">
         <h1 className="text-3xl font-semibold text-gray-600 hidden md:block">
           Browse Jobs
