@@ -1,4 +1,5 @@
 /* eslint-disable @next/next/no-img-element */
+import Link from "next/link";
 import React from "react";
 
 const Course = () => {
@@ -17,7 +18,7 @@ const Course = () => {
             training and placement.
           </p>
           <button className="px-6 py-3 border border-blue-500 text-black hover:bg-blue-500 hover:text-white rounded-md transition duration-300">
-            Explore Courses
+            <Link href={"/courses"}>Explore Courses</Link>
           </button>
         </div>
       </div>

@@ -4,32 +4,32 @@ import Link from "next/link";
 
 import React from "react";
 import Marquee from "react-fast-marquee";
+
 const RecentJobCircularByLocations = () => {
   return (
-    <div className="bg-gray-100 p-6">
-      <h2 className="text-[30px] font-bold">
+    <div className="bg-white p-6 shadow-md rounded-lg">
+      <h2 className="text-2xl font-semibold ">
         Recent Job Circular By Locations
       </h2>
-      <p className="mb-4 text-[20px]">
+      <p className="text-xl mb-4">
         Find job opportunities in your suitable location
       </p>
       <Marquee>
-        <div className="flex  items-center">
+        <div className="flex items-center">
           {Cities?.map((logo) => (
             <div
               key={logo.title}
-              className="group flex flex-col items-center p-2 transition-transform transform hover:scale-95 rounded-lg overflow-hidden"
+              className="group flex flex-col items-center p-4 transition-transform transform hover:scale-105 rounded-lg overflow-hidden cursor-pointer"
             >
               <Link href={"/jobs"}>
-                {" "}
-                <div className=" mb-2">
+                <div className="mb-4">
                   <Image
                     width={200}
                     height={200}
                     src={logo.logo}
                     alt={logo.title}
                   />
-                  <p className="text-center bg-gray-200 rounded-md p-2 text-lg">
+                  <p className="text-lg font-semibold text-center mt-2">
                     {logo.title}
                   </p>
                 </div>

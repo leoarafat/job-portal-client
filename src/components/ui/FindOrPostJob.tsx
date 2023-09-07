@@ -1,5 +1,6 @@
 /* eslint-disable react/no-unescaped-entities */
 import Image from "next/image";
+import Link from "next/link";
 import React from "react";
 
 const FindOrPostJob = () => {
@@ -18,9 +19,12 @@ const FindOrPostJob = () => {
           />
         </div>
         <div className="mt-4">
-          <button className="px-6 py-2 bg-blue-500 text-white rounded-md shadow-md hover:bg-blue-600 transition duration-300 w-40">
-            Apply for Jobs
-          </button>
+          <Link href={"/jobs"}>
+            {" "}
+            <button className="px-6 py-2 bg-blue-500 text-white rounded-md shadow-md hover:bg-blue-600 transition duration-300 w-40">
+              Apply for Jobs
+            </button>
+          </Link>
           <p className="text-gray-600 mt-2 font-semibold">
             Discover the latest job circulars in Bangladesh and around the
             world.
@@ -46,9 +50,12 @@ const FindOrPostJob = () => {
             company. Post a Job Now, It's{" "}
             <span className="text-red-600">free!</span>
           </p>
-          <button className="px-6 py-2 bg-green-500 text-white rounded-md shadow-md hover:bg-green-600 transition duration-300 w-40">
-            Post A Job
-          </button>
+          <Link href={"/dashboard"}>
+            {" "}
+            <button className="px-6 py-2 bg-green-500 text-white rounded-md shadow-md hover:bg-green-600 transition duration-300 w-40">
+              Post A Job
+            </button>
+          </Link>
         </div>
       </div>
     </div>

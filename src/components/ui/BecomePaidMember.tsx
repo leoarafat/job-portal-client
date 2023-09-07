@@ -1,5 +1,6 @@
 /* eslint-disable @next/next/no-img-element */
 import Image from "next/image";
+import Link from "next/link";
 import React from "react";
 
 const BecomePaidMember = () => {
@@ -7,9 +8,12 @@ const BecomePaidMember = () => {
     <div className="grid md:grid-cols-2  text-center  mb-10">
       <div className=" bg-blue-900 text-white flex items-center justify-center">
         <div className="">
-          <h1 className="text-[30px] font-bold mb-14">
-            Become Our Paid Member
-          </h1>
+          <Link href={"/membership"}>
+            {" "}
+            <h1 className="text-[30px] font-bold mb-14">
+              Become Our Paid Member
+            </h1>
+          </Link>
           <p className="text-lg font-sans mb-14 p-3">
             Pro career is a popular job site and a comprehensive career
             solutions provider. Our paid membership offers a complete career

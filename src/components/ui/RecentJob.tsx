@@ -16,9 +16,7 @@ const RecentJobCircular: React.FC = () => {
   return (
     <div className="bg-white rounded-lg shadow-md p-6">
       <div className="flex items-center justify-between mb-4">
-        <h2 className="text-3xl font-semibold text-gray-800">
-          Recent Job Circulars
-        </h2>
+        <h2 className="text-2xl font-semibold mb-4">Recent Job Circulars</h2>
         <Link href="/jobs">
           <button className="px-6 py-3 bg-blue-500 text-white rounded-md hover:bg-blue-600 transition duration-300 ease-in-out">
             Explore All

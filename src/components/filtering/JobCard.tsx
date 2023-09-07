@@ -75,7 +75,7 @@ const JobCard = ({ job }: any) => {
   };
 
   return (
-    <div className="bg-white rounded-lg shadow-lg p-6">
+    <div className="bg-white rounded-lg shadow-lg p-6 transform transition-transform hover:scale-105 hover:shadow-xl hover:bg-indigo-100">
       <h2 className="text-2xl font-semibold text-gray-800">{job?.title}</h2>
 
       <p className="text-gray-500 mt-2">{job?.companyName}</p>
@@ -112,7 +112,7 @@ const JobCard = ({ job }: any) => {
           onClick={handleSaved}
           className={`${
             isSaved ? "text-red-500" : "text-gray-700"
-          } hover:text-red-700 flex items-center space-x-1 focus:outline-none`}
+          } hover:text-red-700 flex items-center space-x-1 focus:outline-none transition duration-300 ease-in-out`}
         >
           {isLoading ? (
             <Spin size="small" />
@@ -128,7 +128,7 @@ const JobCard = ({ job }: any) => {
             </>
           )}
         </button>
-        <button className="text-gray-700 hover:text-blue-500 focus:outline-none">
+        <button className="text-gray-700 hover:text-blue-500 focus:outline-none transition duration-300 ease-in-out">
           <ShareAltOutlined /> Share
         </button>
       </div>
