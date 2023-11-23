@@ -12,8 +12,9 @@ const FindOrPostJob = () => {
           <Image
             layout="fill"
             objectFit="responsive"
+            className="rouned-lg"
             src={
-              "https://res.cloudinary.com/arafatleo/image/upload/v1693040310/Pro%20careers/Location/site-image-42t_ltdj3g.png"
+              "https://res.cloudinary.com/arafatleo/image/upload/v1700725433/Pro%20careers/step-4_1x.f4e61edbd4e05f77ec4bf7032d030fc9-removebg-preview_sppg91.png"
             }
             alt="Find Job"
           />
@@ -39,7 +40,7 @@ const FindOrPostJob = () => {
             layout="fill"
             objectFit="responsive"
             src={
-              "https://res.cloudinary.com/arafatleo/image/upload/v1693040354/Pro%20careers/Location/site-image-4t_ilipq5.png"
+              "https://res.cloudinary.com/arafatleo/image/upload/v1700725703/Pro%20careers/6cc07c563cbcbad44d4566619c16e64a-removebg_c95bsn.png"
             }
             alt="Post Job"
           />

@@ -7,7 +7,7 @@ const ResumeBuilder = () => {
       <div>
         <img
           className=""
-          src="https://res.cloudinary.com/arafatleo/image/upload/v1693048581/Pro%20careers/Location/hbanner2.4fe5649_wzcyn6.png"
+          src="https://res.cloudinary.com/arafatleo/image/upload/v1700725703/Pro%20careers/6cc07c563cbcbad44d4566619c16e64a-removebg_c95bsn.png"
           alt="Test Your Employability"
         />
       </div>

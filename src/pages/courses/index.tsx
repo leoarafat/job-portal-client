@@ -50,6 +50,7 @@ const AllCourses = () => {
   const onChange: PaginationProps["onChange"] = (page) => {
     setCurrent(page);
   };
+
   if (isLoading) {
     return <Loader />;
   }

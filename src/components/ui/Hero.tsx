@@ -1,3 +1,4 @@
+import Link from "next/link";
 import React, { useState, useEffect } from "react";
 import { FaSearch, FaMapMarkerAlt } from "react-icons/fa";
 
@@ -64,7 +65,7 @@ const HeroSection = () => {
           </div>
         </div>
         <button className="mt-4 bg-indigo-500 text-white py-2 px-4 rounded-lg shadow-xl hover:bg-indigo-600 transition duration-300 ease-in-out">
-          Search
+          <Link href={"/jobs"}>Search</Link>
         </button>
       </div>
     </div>

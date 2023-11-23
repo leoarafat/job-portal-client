@@ -23,7 +23,7 @@ const SkillAssetment = () => {
         <div className="bg-base-100 shadow-md p-3">
           <img
             className=""
-            src="https://res.cloudinary.com/arafatleo/image/upload/v1693047569/Pro%20careers/Location/skilltestimage.e24fe37_jmjavq.png"
+            src="https://res.cloudinary.com/arafatleo/image/upload/v1700725939/Pro%20careers/png-transparent-security-testing-computer-security-penetration-test-software-testing-vulnerability-information-security-miscellaneous-angle-information-technology-thumbnail-removebg-preview_zt6yao.png"
             alt="Test Your Employability"
           />
           <p className="font-semibold">
