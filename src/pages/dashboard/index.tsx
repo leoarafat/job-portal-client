@@ -58,8 +58,6 @@ const DashboardLayout = ({ children }: RootLayoutProps) => {
       ),
       getItem("Previous Job", "3", <BarChartOutlined />, "/previous-jobs"),
       getItem("Post a Job", "4", <FileAddOutlined />, "/post-job"),
-      getItem("Resume Bank", "5", <ProfileOutlined />, "/resume-bank"),
-      getItem("Transactions", "6", <TranslationOutlined />, "/transactions"),
     ];
   } else if (user?.role === "Candidate") {
     filteredItems = [
@@ -70,18 +68,12 @@ const DashboardLayout = ({ children }: RootLayoutProps) => {
         <GrUserSettings />,
         `/candidate-profile/${id}`
       ),
-      getItem("Applied Jobs", "2", <OrderedListOutlined />, "/applied-jobs"),
-      getItem("Saved List", "3", <FileDoneOutlined />, "/saved-job"),
-      getItem(
-        "Skill Enhancement",
-        "4",
-        <BarChartOutlined />,
-        "/skill-enhancement"
-      ),
-      getItem("Social Feed", "5", <TeamOutlined />, "/social-feed"),
+      getItem("Applied Jobs", "3", <OrderedListOutlined />, "/applied-jobs"),
+      getItem("Saved List", "4", <FileDoneOutlined />, "/saved-job"),
+
       getItem(
         "Transactions History",
-        "6",
+        "5",
         <TranslationOutlined />,
         "/transactions-history"
       ),

@@ -75,7 +75,7 @@ const jobApi = api.injectEndpoints({
       }),
     }),
     getMyJob: builder.query({
-      query: ({ id }) => `/jobs/my-application/${id}`,
+      query: (id) => `/jobs/my-application/${id?.candidateId}`,
     }),
     getSavedJob: builder.query({
       query: ({ id }) => `/jobs/saved-job/${id}`,
@@ -86,6 +86,13 @@ const jobApi = api.injectEndpoints({
         method: "DELETE",
       }),
       invalidatesTags: ["deleteSavedJob"],
+    }),
+    deleteAppliedJob: builder.mutation({
+      query: (id) => ({
+        url: `/jobs/applied-job/${id}`,
+        method: "DELETE",
+      }),
+      invalidatesTags: ["deleteAppliedJob"],
     }),
   }),
 });
@@ -103,4 +110,5 @@ export const {
   useGetSavedJobQuery,
   useDeleteSavedJobMutation,
   useGetAllJobPostQuery,
+  useDeleteAppliedJobMutation,
 } = jobApi;

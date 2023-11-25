@@ -17,9 +17,9 @@ const RecruitmentService = () => {
             Jobs, go beyond reviews to increase talent acquisition with an
             active, appealing presence.
           </p>
-          <button className="px-6 py-3 border border-blue-500 text-black hover:bg-blue-500 hover:text-white rounded-md transition duration-300 mb-6">
+          {/* <button className="px-6 py-3 border border-blue-500 text-black hover:bg-blue-500 hover:text-white rounded-md transition duration-300 mb-6">
             Join Now
-          </button>
+          </button> */}
         </div>
       </div>
       <div>

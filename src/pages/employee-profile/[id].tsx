@@ -79,7 +79,7 @@ const UpdateEmployee = () => {
           style={{ maxWidth: 600 }}
         >
           {/* Image Upload */}
-          <Form.Item name={["image"]} label="Image">
+          {/* <Form.Item name={["image"]} label="Image">
             <Upload
               name="image"
               action="/your-upload-endpoint"
@@ -96,7 +96,7 @@ const UpdateEmployee = () => {
                 </div>
               )}
             </Upload>
-          </Form.Item>
+          </Form.Item> */}
           <Form.Item
             name={["name"]}
             label="Company Name"

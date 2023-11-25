@@ -6,7 +6,14 @@ export const api = createApi({
     // baseUrl: "https://procarrer.onrender.com/api/v1",
     baseUrl: "http://localhost:5000/api/v1",
   }),
-  tagTypes: ["post", "update", "deleteJob", "updateJob", "deleteSavedJob"],
+  tagTypes: [
+    "post",
+    "update",
+    "deleteJob",
+    "updateJob",
+    "deleteSavedJob",
+    "deleteAppliedJob",
+  ],
 
   endpoints: () => ({}),
 });

@@ -96,7 +96,7 @@ const UpdateCandidate = () => {
           validateMessages={validateMessages}
           style={{ maxWidth: 600 }}
         >
-          <Form.Item name={["photoUrl"]} label="Image">
+          {/* <Form.Item name={["photoUrl"]} label="Image">
             <Upload
               name="image"
               listType="picture-card"
@@ -112,7 +112,7 @@ const UpdateCandidate = () => {
                 </div>
               )}
             </Upload>
-          </Form.Item>
+          </Form.Item> */}
           <Form.Item
             initialValue={candidate?.data?.name}
             name={["name"]}

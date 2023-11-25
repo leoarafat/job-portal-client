@@ -128,9 +128,9 @@ const JobCard = ({ job }: any) => {
             </>
           )}
         </button>
-        <button className="text-gray-700 hover:text-blue-500 focus:outline-none transition duration-300 ease-in-out">
+        {/* <button className="text-gray-700 hover:text-blue-500 focus:outline-none transition duration-300 ease-in-out">
           <ShareAltOutlined /> Share
-        </button>
+        </button> */}
       </div>
     </div>
   );

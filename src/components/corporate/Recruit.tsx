@@ -1,4 +1,5 @@
 import { CheckOutlined } from "@ant-design/icons";
+import Link from "next/link";
 import React from "react";
 
 const Recruit = () => {
@@ -170,9 +171,12 @@ const Recruit = () => {
           </div>
         </dl>
         <div className="text-center py-3">
-          <button className="px-6 py-2 bg-white text-black rounded-md shadow-md hover:bg-blue-600 transition duration-300 w-48 font-semibold">
-            Check our pricing
-          </button>
+          <Link href={"/membership"}>
+            {" "}
+            <button className="px-6 py-2 bg-[#1565C0] text-black rounded-md shadow-md hover:bg-blue-600 transition duration-300 w-48 font-semibold">
+              Check our pricing
+            </button>
+          </Link>
         </div>
       </div>
     </div>
