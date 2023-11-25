@@ -1,26 +1,20 @@
+import { imageUrls } from "@/shared/mockData";
 import Link from "next/link";
 import React, { useState, useEffect } from "react";
 import { FaSearch, FaMapMarkerAlt } from "react-icons/fa";
 
 const HeroSection = () => {
-  const imageUrls = [
-    "https://res.cloudinary.com/arafatleo/image/upload/v1694060432/Pro%20careers/photo-1568992687947-868a62a9f521_her9bi.jpg",
-    "https://images.pexels.com/photos/2312369/pexels-photo-2312369.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
-    "https://res.cloudinary.com/arafatleo/image/upload/v1694061374/Pro%20careers/pexels-photo-6893804_iddu2c.jpg",
-    "https://res.cloudinary.com/arafatleo/image/upload/v1694060809/Pro%20careers/premium_photo-1661572991709-14e6194330b2_dytc7t.jpg",
-  ];
-
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
 
   useEffect(() => {
     const interval = setInterval(() => {
       setCurrentImageIndex((prevIndex) =>
-        prevIndex === imageUrls.length - 1 ? 0 : prevIndex + 1
+        prevIndex === imageUrls?.length - 1 ? 0 : prevIndex + 1
       );
     }, 2000);
 
     return () => clearInterval(interval);
-  }, [imageUrls.length]);
+  }, []);
 
   return (
     <div
@@ -44,7 +38,7 @@ const HeroSection = () => {
           <div className="relative w-full shadow-xl rounded-lg">
             <input
               type="text"
-              className="w-full bg-white py-2 px-4 border border-gray-300 rounded-lg focus:ring-indigo-500 focus:border-indigo-500"
+              className="w-full bg-white text-gray-900 py-2 px-4 border border-gray-300 rounded-lg focus:ring-indigo-500 focus:border-indigo-500"
               placeholder="Search"
             />
             <div className="absolute inset-y-0 right-0 pr-3 flex items-center pointer-events-none">
@@ -52,18 +46,18 @@ const HeroSection = () => {
             </div>
           </div>
         </div>
-        <div className="w-full max-w-md">
+        {/* <div className="w-full max-w-md">
           <div className="relative w-full shadow-xl rounded-lg">
             <input
               type="text"
-              className="w-full bg-white py-2 px-4 border border-gray-300 rounded-lg focus:ring-indigo-500 focus:border-indigo-500"
+              className="w-full text-gray-900 bg-white py-2 px-4 border border-gray-300 rounded-lg focus:ring-indigo-500 focus:border-indigo-500"
               placeholder="Filter by location"
             />
             <div className="absolute inset-y-0 right-0 pr-3 flex items-center pointer-events-none">
               <FaMapMarkerAlt className="text-gray-400" />
             </div>
           </div>
-        </div>
+        </div> */}
         <button className="mt-4 bg-indigo-500 text-white py-2 px-4 rounded-lg shadow-xl hover:bg-indigo-600 transition duration-300 ease-in-out">
           <Link href={"/jobs"}>Search</Link>
         </button>

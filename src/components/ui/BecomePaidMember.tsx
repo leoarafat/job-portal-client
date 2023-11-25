@@ -23,9 +23,11 @@ const BecomePaidMember = () => {
             such as pro resume builder, skills tests, career toolkit, remote
             work and so on.
           </p>
-          <button className="px-6 py-2 border border-blue-500 text-white hover:bg-white hover:text-black rounded-md transition duration-300 mb-10">
-            Become A Paid Member
-          </button>
+          <Link href={"/membership"}>
+            <button className="px-6 py-2 border border-blue-500 text-white hover:bg-white hover:text-black rounded-md transition duration-300 mb-10">
+              Become A Paid Member
+            </button>
+          </Link>
         </div>
       </div>
       <div className="md:grid grid-cols-2 grid-rows-2">

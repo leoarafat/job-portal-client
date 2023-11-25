@@ -29,7 +29,7 @@ export default function Home() {
         <RecentJobCircularByLocations />
         <FindOrPostJob />
         <BecomePaidMember />
-        <SkillAssetment />
+        {/* <SkillAssetment /> */}
         <ResumeBuilder />
         <Courses />
         <InterviewQuestions />
